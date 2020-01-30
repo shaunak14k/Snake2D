@@ -281,31 +281,10 @@ public class Level3 extends JPanel implements KeyListener,ActionListener
 		//new MainMenu("clear");		//To clear the previous JFrame of the game
 		
 		
-		GameWinMenu g1 = new GameWinMenu();
-		int x1 = g1.GameWin(score,highScore,3);
-		if(x1==1)		//Goto gameovermenu Frame
-		{	
-			//f.dispose();
-			//g.dispose();
-			//panel.setVisible(false);
-			//break;
-		}	
-		//this does not close because it comes back 
+		GameWinMenu g1 = new GameWinMenu(1,"level3");
+		g1.GameWin(score,highScore,3);
 		
-		else if(x1==0)
-		{
-			moves = 0;
-			score = 0;
-			snakeLength = 3;
-			
-			//Reinitialize the speed to the starting speed
-			timer.stop();
-			delay = 150;
-			timer = new Timer(delay, this);
-			timer.start();
-		
-			repaint();
-		}
+		f1.dispose();
 	}
 	
 	
@@ -463,6 +442,15 @@ public class Level3 extends JPanel implements KeyListener,ActionListener
 				return;
 			}
 			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(up || down)
+			{
+				if(snakeYLength[0] == snakeYLength[1])
+					return;
+			}
+			//*************************************************************************
+			
 			moves++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
@@ -498,6 +486,15 @@ public class Level3 extends JPanel implements KeyListener,ActionListener
 				return;
 			}
 			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(up || down)
+			{
+				if(snakeYLength[0] == snakeYLength[1])
+					return;
+			}
+			//*************************************************************************
+			
 			moves++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
@@ -527,6 +524,15 @@ public class Level3 extends JPanel implements KeyListener,ActionListener
 				return;
 			}
 			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(left || right)
+			{
+				if(snakeXLength[0] == snakeXLength[1])
+					return;
+			}
+			//**********************************************************************
+			
 			moves++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
@@ -555,6 +561,16 @@ public class Level3 extends JPanel implements KeyListener,ActionListener
 			{
 				return;
 			}
+			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(left || right)
+			{
+				if(snakeXLength[0] == snakeXLength[1])
+					return;
+			}
+			//**********************************************************************
+			
 			moves++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
@@ -649,6 +665,8 @@ public class Level3 extends JPanel implements KeyListener,ActionListener
 			left=false;
 			
 			pause = true;
+			
+			f1.dispose();
 			
 			PauseMenu ob = new PauseMenu(1,"level3");	
 			ob.PauseMenuF(f1);			

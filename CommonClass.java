@@ -26,7 +26,7 @@ public class CommonClass extends JPanel implements KeyListener,ActionListener
 	private int moves;
 	private int[] snakeXLength;
 	private int[] snakeYLength;
-	private int snakeLength;
+	private int snakeLength; 
 
 	public CommonClass(boolean right,boolean left,boolean up,boolean down,boolean pause,int moves,int pauseDir,int snakeXLength[],int snakeYLength[],int snakeLength)
 	{
@@ -48,44 +48,71 @@ public class CommonClass extends JPanel implements KeyListener,ActionListener
 	{}
 	
 	//FOR One Player
-	public void paint(Graphics g,int score,int snakeLength,boolean pause,String level, boolean left, boolean right, boolean up, boolean down, int snakeXLength[],int snakeYLength[],int pauseDir)
+	public void paint(Graphics g,int score,int snakeLength,boolean pause,String map, boolean left, boolean right, boolean up, boolean down, int snakeXLength[],int snakeYLength[],int pauseDir)
 	{
 //		//ImageIcon grass = new ImageIcon("wall4.jpg");
 		//grass.paintIcon(this, g, 0, 0);
 		
 		//Borders of title image
 		g.setColor(Color.white);
-		g.drawRect(24, 10, 850, 55); 
-		
+		g.drawRect(24, 10, 852, 55); 
 		titleImage = new ImageIcon("snaketitle.jpg");
 		titleImage.paintIcon(this, g, 25, 11);
 		
+		
 		//Border of gameplay
 		g.setColor(Color.white);
-		g.drawRect(24, 74, 851, 577); 
+		g.drawRect(24, 74, 850, 576); 
 		g.setColor(Color.black);
-		g.fillRect(25, 75, 850, 576);
+		ImageIcon bg = new ImageIcon("background1.png");
+		bg.paintIcon(this, g, 25, 75);
+		//g.fillRect(25, 75, 850, 576);
 		
 		//Draw the pause option
-		g.setColor(Color.black);
+		g.setColor(Color.orange);
 		g.setFont(new Font("Cooper black",Font.PLAIN, 14));
 		g.drawString("Press ESC to pause the game", 50, 42);
 		
 		//Draw the scores
-		g.setColor(Color.black);
+		g.setColor(Color.orange);
 		g.setFont(new Font("Cooper black",Font.PLAIN, 14));
-		g.drawString("Score   : "+score, 780, 30);
+		g.drawString("Score  : "+score, 780, 30);
 		
 		//Draw gameType  and level
 		g.drawString("Single Player", 630, 30);
 		g.setColor(Color.white);
-		g.drawString(level,650,50);
+		g.drawString(map,650,50);
 		
-		//Draw the length
-		g.setColor(Color.black);
+		//Draw the highscore
+		g.setColor(Color.orange);
 		g.setFont(new Font("Cooper black",Font.PLAIN, 14));
-		g.drawString("Length : "+snakeLength, 780, 50);
-				
+		
+		//Check which level's highScore should be shown
+		int level;
+		switch(map)
+		{
+			case "Classic":	level = 0;
+							break;
+							
+			case "Box":		level = 1;
+							break;
+						
+			case "Obstacle-1":	level = 2;
+								break;
+								
+			case "Obstacle-2":	level = 3;
+								break;
+								
+			default:	level = 0;
+						break;
+		}
+		//Draw HighSCore
+		UpdateHighScore ob = new UpdateHighScore();
+		int highScore = ob.displayHighScore(level);
+		g.drawString("Highscore  : "+highScore, 748, 50);
+		
+		
+		
 		if(pause) 
 		{	
 			g.setColor(Color.red);
@@ -233,15 +260,19 @@ public class CommonClass extends JPanel implements KeyListener,ActionListener
 		
 		
 		g.setColor(Color.white);
-		g.drawRect(24, 10, 850, 55); 
+		g.drawRect(24, 10, 852, 55); 
 		
 		titleImage = new ImageIcon("snaketitle.jpg");
 		titleImage.paintIcon(this, g, 25, 11);
 		
 		//Border of Game2
-		g.drawRect(24, 74, 851, 577); 
+		//Border of gameplay
+		g.setColor(Color.white);
+		g.drawRect(24, 74, 850, 576); 
 		g.setColor(Color.black);
-		g.fillRect(25, 75, 850, 576);
+		ImageIcon bg = new ImageIcon("background1.png");
+		bg.paintIcon(this, g, 25, 75);
+		//g.fillRect(25, 75, 850, 576);
 		
 		//Text to Resume
 		if(pause) 
@@ -260,24 +291,25 @@ public class CommonClass extends JPanel implements KeyListener,ActionListener
 		}
 		
 		//Draw the pause option
-		g.setColor(Color.black);
+		g.setColor(Color.orange);
 		g.setFont(new Font("Cooper black",Font.PLAIN, 14));
 		g.drawString("Press ESC to pause the game", 50, 42);
 		
 		//Draw the scores
-		g.setColor(Color.black);
+		g.setColor(Color.green.darker());
 		g.setFont(new Font("Cooper black",Font.PLAIN, 14));
-		g.drawString("Green   : "+p1score, 770, 30);
+		g.drawString("Green  : "+p1score, 770, 30);
 		
 		//Draw gameType and level
+		g.setColor(Color.orange);
 		g.drawString("Two Players", 630, 30);
 		g.setColor(Color.white);
 		g.drawString(level,650,50);
 		
 		//Draw the length
-		g.setColor(Color.black);
+		g.setColor(Color.red);
 		g.setFont(new Font("Cooper black",Font.PLAIN, 14));
-		g.drawString("Red : "+p2score, 770, 50);
+		g.drawString("Red      : "+p2score, 770, 50);
 	}
 
 	

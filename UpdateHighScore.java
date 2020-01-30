@@ -147,6 +147,76 @@ public class UpdateHighScore
 		 
 		return newHighScore;
 	}
+	
+	//*************************************************************************************************************************************************
+	//DISPLAY ON BOARD
+	
+	int displayHighScore(int level)
+	{	
+		int highScore=0;
+		
+		//String oldHighScore = "";
+				
+		String classicHS="",boxHS="",obs1HS="",obs2HS="";
+		
+		int cnt=0;
+		
+		try 
+		{	 
+			// open file to read
+			Scanner scanner = new Scanner(new File("C:\\\\Users\\\\Shaunak\\\\eclipse-workspace\\\\Snake Game\\\\testFile\\\\singlePlayer.txt"));
+			// read until end of file (EOF)
+			while (scanner.hasNextLine()) 
+			{
+				
+				//oldHighScore = scanner.nextLine();
+				
+				cnt++;
+				
+				System.out.println(cnt);
+				
+				switch(cnt)  
+				{
+				case 1:	classicHS = scanner.nextLine();
+						break;
+				
+				case 2:	boxHS = scanner.nextLine();	
+						break;
+						
+				case 3:	obs1HS = scanner.nextLine();	
+						break;
+				
+				case 4:	obs2HS = scanner.nextLine();	
+						break;
+				}
+			}			
+		}
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+				
+		switch(level)
+		{
+			case 0:	highScore = Integer.parseInt(classicHS);
+					break;
+					
+			case 1:	highScore = Integer.parseInt(boxHS);
+					break;
+			
+			case 2:	highScore = Integer.parseInt(obs1HS);
+					break;
+			
+			case 3:	highScore = Integer.parseInt(obs2HS);
+					break;
+			
+			default :	highScore = Integer.parseInt(classicHS);
+						break;	
+		}
+				 
+		
+		return highScore;
+	}
 		
 	
 	

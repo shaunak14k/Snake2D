@@ -22,7 +22,7 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 	
 	/**
 	 * 
-	 */
+	 */ 
 	public Gameplay()
 	{}
 	
@@ -259,9 +259,10 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 		//new MainMenu("clear");		//To clear the previous JFrame of the game
 		
 		
-		GameWinMenu g1 = new GameWinMenu();
+		GameWinMenu g1 = new GameWinMenu(1,"classic");
 		 g1.GameWin(score,highScore,0);
-		
+	
+		 f1.dispose();
 	}
 	
 	
@@ -398,11 +399,14 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 			
 			moves++;
 			
-			//REMOVE TURNING GLITCH
-			if(snakeXLength[0]==snakeXLength[2] && snakeYLength[0]==snakeYLength[2])
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(up || down)
 			{
-				return;
+				if(snakeYLength[0] == snakeYLength[1])
+					return;
 			}
+			//*************************************************************************
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
 			// So if we press a key which will result in the opposite direction movement , snake should not listen aand should continue moving in the same direction
@@ -438,6 +442,14 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 				return;
 			}
 			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(up || down)
+			{
+				if(snakeYLength[0] == snakeYLength[1])
+					return;
+			}
+			//*************************************************************************
 			
 			moves++;
 			
@@ -469,10 +481,19 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 				return;
 			}
 			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(left || right)
+			{
+				if(snakeXLength[0] == snakeXLength[1])
+					return;
+			}
+			//**********************************************************************
+			
 			moves++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
-			// So if we press a key which will result in the opposite direction movement , snake should not listen aand should continue moving in the same direction
+			// So if we press a key which will result in the opposite direction movement , snake should not listen and should continue moving in the same direction
 			if(!down)
 			{
 				up = true;
@@ -498,6 +519,16 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 			{
 				return;
 			}
+			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(left || right)
+			{
+				if(snakeXLength[0] == snakeXLength[1])
+					return;
+			}
+			//**********************************************************************
+			
 			moves++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
@@ -564,7 +595,7 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 			//If game is not started nothing should happen
 			if(moves == 0)
 			{
-				return;
+				pause=true;
 			}
 			
 			/*//If game is stopped or game is over then quit the game

@@ -31,7 +31,7 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 	private boolean play = true;
 	
 	//Images for the snake
-	private ImageIcon rightMouth;		
+	private ImageIcon rightMouth;		 
 	private ImageIcon leftMouth;
 	private ImageIcon upMouth;
 	private ImageIcon downMouth;
@@ -129,18 +129,18 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 		}
 		
 		//Paint board and text on the board	
-				CommonClass c = new CommonClass();
-				c.paint(g,score,snakeLength,pause,map,left,right,up,down,snakeXLength,snakeYLength,pauseDir);
+		CommonClass c = new CommonClass();
+		c.paint(g,score,snakeLength,pause,map,left,right,up,down,snakeXLength,snakeYLength,pauseDir);
 	
 		
 		//Draw border for the snake to collide
-				g.setColor(Color.blue);
-				Graphics2D g2 = (Graphics2D) g;
-				int thickness = 4;
-				Stroke oldStroke = g2.getStroke();
-				g2.setStroke(new BasicStroke(thickness));
-				g2.drawRect(24, 75, 851, 577);
-				g2.setStroke(oldStroke);
+		g.setColor(Color.green.darker());
+		Graphics2D g2 = (Graphics2D) g;
+		int thickness = 4;
+		Stroke oldStroke = g2.getStroke();
+		g2.setStroke(new BasicStroke(thickness));
+		g2.drawRect(24, 75, 851, 577);
+		g2.setStroke(oldStroke);
 		
 		
 		
@@ -255,31 +255,10 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 		//new MainMenu("clear");		//To clear the previous JFrame of the game
 		
 		
-		GameWinMenu g1 = new GameWinMenu();
-		int x1 = g1.GameWin(score,highScore,1);
-		if(x1==1)		//Goto gameovermenu Frame
-		{	
-			//f.dispose();
-			//g.dispose();
-			//panel.setVisible(false);
-			//break;
-		}	
-		//this does not close because it comes back 
+		GameWinMenu g1 = new GameWinMenu(1,"Border");
+		g1.GameWin(score,highScore,1);
 		
-		else if(x1==0)
-		{
-			moves = 0;
-			score = 0;
-			snakeLength = 3;
-			
-			//Reinitialize the speed to the starting speed
-			timer.stop();
-			delay = 150;
-			timer = new Timer(delay, this);
-			timer.start();
-		
-			repaint();
-		}
+		f1.dispose();
 	}
 	
 	
@@ -412,6 +391,15 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 			
 			moves++;
 			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(up || down)
+			{
+				if(snakeYLength[0] == snakeYLength[1])
+					return;
+			}
+			//*************************************************************************
+			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
 			// So if we press a key which will result in the opposite direction movement , snake should not listen aand should continue moving in the same direction
 			if(!left)
@@ -445,6 +433,15 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 				return;
 			}
 			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(up || down)
+			{
+				if(snakeYLength[0] == snakeYLength[1])
+					return;
+			}
+			//*************************************************************************
+			
 			moves++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
@@ -474,6 +471,15 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 				return;
 			}
 			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(left || right)
+			{
+				if(snakeXLength[0] == snakeXLength[1])
+					return;
+			}
+			//**********************************************************************
+			
 			moves++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
@@ -502,6 +508,16 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 			{
 				return;
 			}
+			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(left || right)
+			{
+				if(snakeXLength[0] == snakeXLength[1])
+					return;
+			}
+			//**********************************************************************
+			
 			moves++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
@@ -597,6 +613,8 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 			left=false;
 			
 			pause = true;
+			
+			f1.dispose();
 			
 			PauseMenu ob = new PauseMenu(1,"Border");	
 			ob.PauseMenuF(f1);

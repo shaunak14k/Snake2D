@@ -32,7 +32,7 @@ public class PauseMenu
 		JButton exit = new JButton("Quit");
 		JButton menu = new JButton("Main Menu");
 				
-		f.setTitle("Snake Game");		//Set title of the frame
+		f.setTitle("Snake2D");		//Set title of the frame
 		f.setBounds(10 ,10 ,905, 700);	//Set bounds of the frame (borders)
 		f.setResizable(false);			//User cannot resize the frame
 		f.setVisible(true);
@@ -42,6 +42,10 @@ public class PauseMenu
 
 		f.setLayout(null);
 		//f.add(panel);
+		
+		//Add icon to JFrame
+		ImageIcon icon = new ImageIcon("frameIcon.png");
+		f.setIconImage(icon.getImage());
 		
 		//Settings for Text : SNAKE GAME
 		JLabel lt = new JLabel(new ImageIcon("gamePaused.png"));
@@ -177,7 +181,7 @@ public class PauseMenu
 				
 	        	f.dispose();  
 	        	
-	        	f1.setTitle("Snake Game");		//Set title of the frame
+	        	f1.setTitle("Snake2D");		//Set title of the frame
 	    		f1.setBounds(10 ,10 ,905, 700);	//Set bounds of the frame (borders)
 		   		f1.setResizable(false);			//User cannot resize the frame
 	    		f1.setVisible(true);
@@ -186,6 +190,10 @@ public class PauseMenu
 	    		f1.setBackground(Color.black);
 	    		f1.setLocationRelativeTo(null);
 	        	
+	    		//Add icon to JFrame
+	    		ImageIcon icon = new ImageIcon("frameIcon.png");
+	    		f1.setIconImage(icon.getImage());
+	    		
 	        	//f.repaint();
 				//f.dispose();
 				

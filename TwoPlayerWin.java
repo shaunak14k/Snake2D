@@ -1,4 +1,6 @@
 import java.awt.Color;
+
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,50 +17,36 @@ import javazoom.jl.player.Player;
 
 
 
-public class GameOverMenu implements ActionListener
+public class TwoPlayerWin implements ActionListener
 {
-
+	int x;
+	
 	int gtype;
 	String mapS;
 	
-	public GameOverMenu(int gtype, String mapS) 
+	public TwoPlayerWin(int gtype,String mapS) 
 	{
 		//super(gtype, mapS);
-		// TODO Auto-generated constructor stub
-		 
 		this.gtype = gtype;
 		this.mapS = mapS;
 	}
-
 	
-	int highScore;		//To store HighScore from textfile
-	int x = 0;
-	
-	int GameOver(int score,int highScore,int level)
+	int GameWin(String winner)
 	{
 		
+		//UpdateHighScore ob = new UpdateHighScore();
 		
-		//gameOverMusic();
+		//System.out.println("STARTED ");
 		
-		UpdateHighScore ob = new UpdateHighScore();
-			
-		this.highScore = ob.updateScore(highScore,level);
-		
-		System.out.println("Entered gameOver");
-		System.out.println("this.hs : "+this.highScore);
-		System.out.println("HS : "+highScore);
+		gameWinMusic();
 		
 		JFrame f = new JFrame();	 	//Creating JFrame object f
+		
+		//System.out.println("CREATED");
 		
 		JButton restart = new JButton("Play again");
 		JButton menu = new JButton("Main Menu");
 		JButton exit = new JButton("Quit");
-		
-		JLabel sc = new JLabel("Score - "+score);
-		JLabel hsc = new JLabel("High Score - "+this.highScore);
-		JLabel congo = new JLabel("New High Score!!");
-
-		
 		
 		//Setting some settings for our JFrame
 		f.setTitle("Snake2D");						//Set title of the frame
@@ -68,17 +56,25 @@ public class GameOverMenu implements ActionListener
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.getContentPane().setBackground(Color.DARK_GRAY );
 		f.setLocationRelativeTo(null);
-			
+				
 		f.setLayout(null);
-		//f.add(panel);		//Adding panel to JFrame
-			
+		
 		//Add icon to JFrame
 		ImageIcon icon = new ImageIcon("frameIcon.png");
 		f.setIconImage(icon.getImage());
 		
+		//JPanel panel = new JPanel();
 		
+		JLabel win = new JLabel(winner+" Wins !");
 		
+		//Settings for Text : SNAKE GAME
+		JLabel lt = new JLabel(new ImageIcon("gameOver.png"));
+		lt.setBounds(180, 60, 500, 80);	
+		f.add(lt);
+				
 		
+		System.out.println("HEYYY");
+				
 		//Settings for JButton (START GAME)
 		restart.setBounds(300, 250, 290, 65);		//x,y,width,height
 		restart.setForeground(Color.white);
@@ -127,7 +123,7 @@ public class GameOverMenu implements ActionListener
 				menu.setBackground(Color.white);
 				menu.setForeground(Color.darkGray);
 			}
-					
+			
 			public void mouseExited(java.awt.event.MouseEvent evt) 
 			{
 				menu.setOpaque(false);
@@ -168,45 +164,20 @@ public class GameOverMenu implements ActionListener
 		});
 		f.add(exit);		//Adding start button to JFrame
 		
-		//Settings for Text : SNAKE GAME
-		JLabel lt = new JLabel(new ImageIcon("gameOver.png"));
-		lt.setBounds(180, 60, 500, 80);	
-		f.add(lt);
 		
 		//Settings for Text
-		sc.setFont(new Font("Cooper black", Font.BOLD, 22));
-		sc.setBounds(270, 150, 390, 40);
-		sc.setForeground(Color.orange);
-		//panel.add(sc);
-		f.add(sc);
-		
-		//Settings for Text
-		hsc.setFont(new Font("Cooper black", Font.BOLD, 22));
-		hsc.setBounds(440, 150, 390, 40);
-		hsc.setForeground(Color.orange);
-		//panel.add(hsc);
-		f.add(hsc);
-		
-		if(this.highScore == highScore)
-		{
-			//Settings for Text
-			congo.setFont(new Font("Cooper black", Font.BOLD, 20));
-			congo.setBounds(350, 190, 390, 40);
-			congo.setForeground(Color.red);
-			//panel.add(hsc);
-			f.add(congo);
-		}
+		win.setFont(new Font("Cooper black", Font.BOLD, 22));
+		win.setBounds(360, 150, 390, 40);
+		win.setForeground(Color.orange);
+		f.add(win);		
 		
 		//Settings for WALLPAPER
 		JLabel wallpaper = new JLabel(new ImageIcon("Wall5.jpg"));		
 		wallpaper.setBounds(0, 0, 905, 700);
 		f.add(wallpaper);
-					
-				
-		
+			
 		
 		JFrame f1 = new JFrame();
-		
 		
 		restart.addActionListener(new ActionListener() 
 		{
@@ -229,76 +200,27 @@ public class GameOverMenu implements ActionListener
 	    		ImageIcon icon = new ImageIcon("frameIcon.png");
 	    		f1.setIconImage(icon.getImage());
 	    		
+	    		Game1 g1 = new Game1(f1);
+    			
+    			switch(mapS)
+    			{
+    				case "game1" :	f1.add(g1);
+    								break;
+    							
+    				case "game2":	Game2 g2 = new Game2(f1);
+    								f1.add(g2);
+    								//f.dispose();
+    								break;
+    							
+    				case "game3":	Game3 g3 = new Game3(f1);
+    								f1.add(g3);
+    								break;
+    							
+    							
+    				default : 	f1.add(g1);
+    							break;
+    			}
 	    		
-	    		if(gtype == 1)
-	    		{
-	    			Gameplay basicGame = new Gameplay(f1);
-	    			
-	    			switch(mapS)
-	    			{
-	    				case "classic" :	f1.add(basicGame);
-	    								//f1.dispose();
-	    								break;
-	    							
-	    				case "Border":	BorderGame borderGame = new BorderGame(f1);
-	    								f1.add(borderGame);
-	    								break;
-	    							
-	    				case "level2":	Level2 l2 = new Level2(f1); 
-	    								f1.add(l2);
-	    								
-	    								break;
-	    							
-	    				case "level3":	Level3 l3 = new Level3(f1);
-	    								f1.add(l3);
-	    								break;
-	    							
-	    				default : 	f1.add(basicGame);
-	    							//f1.remove(basicGame);
-	    							break;
-	    			}
-	    		}
-	    		else if(gtype == 2)
-	    		{
-	    			/*TwoPlayerGame g1 = new TwoPlayerGame(f1);
-	    			
-	    			switch(mapS)
-	    			{
-	    				case "game1" :	f1.add(g1);
-	    								break;
-	    							
-	    				case "game2":	Game2 g2 = new Game2(f1);
-	    								f1.add(g2);
-	    								//f.dispose();
-	    								break;
-	    							
-	    				case "game3":	Game3 g3 = new Game3(f1);
-	    								f1.add(g3);
-	    								break;
-	    							
-	    							
-	    				default : 	f1.add(g1);
-	    							break;
-	    			}*/
-	    		}
-	    		
-	    		
-			     x = 0;
-				//************
-				//After clicking on start first frame will get disposed and we make a new frame for our game
-	        	
-				/*JFrame f1 = new JFrame();
-			        	
-	        	f1.setTitle("Snake Game");		//Set title of the frame
-	    		f1.setBounds(10 ,10 ,905, 700);	//Set bounds of the frame (borders)
-		   		f1.setResizable(false);			//User cannot resize the frame
-	    		f1.setVisible(true);
-	    		f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    		f.getContentPane().setBackground(Color.black);			        	
-	        
-	    		f1.add(gameplay);*/
-	        	
-	        	//***************
 	        }
 		});
 				
@@ -309,9 +231,8 @@ public class GameOverMenu implements ActionListener
 				//Return to main menu
 				
 				f.dispose();
-				
-				new MainMenu(gtype,mapS);
 		
+				new MainMenu(gtype,mapS);
 				
 				//new MainMenu("clear");		//To clear the previous JFrame of the game
 				
@@ -332,15 +253,17 @@ public class GameOverMenu implements ActionListener
 			}
 		});
 		
-		System.out.println("Returning x ");
+		
 		return x;
+		
+		
 	}
 	
-	void gameOverMusic()  
+	void gameWinMusic()
 	{
 		try 
 		{
-			FileInputStream fileInputStream = new FileInputStream("gameover.mp3");
+			FileInputStream fileInputStream = new FileInputStream("victory1.mp3");
 
 			Player player; 
 		
@@ -362,8 +285,6 @@ public class GameOverMenu implements ActionListener
 	}
 	
 	
-	
-	//********************************************************************************************************
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
@@ -372,69 +293,3 @@ public class GameOverMenu implements ActionListener
 
 }
 
-
-
-/*java.sql.Connection conn = null;
-Statement stmt = null;
-ResultSet rs = null;
-java.sql.PreparedStatement ps1 = null;
-
-try
-{
-	System.out.println("Entered in UpdateHighScore");
-	
-	Class.forName("com.mysql.jdbc.Driver");
-	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/snakegame","root","");
-
-	if(conn==null)
-	{
-		System.out.println("Connection failed");
-	}
-	else
-	{
-		stmt = conn.createStatement();
-		
-		
-		switch(level)
-		{
-		
-			case 0:		rs = stmt.executeQuery("SELECT  `HighScore` FROM `highscore` WHERE LevelName='BasicLevel' ");
-						while(rs.next())
-						{
-							highScore = rs.getInt(1);
-						}
-						break;	
-					
-			case 1:		rs = stmt.executeQuery("SELECT  `HighScore` FROM `highscore` WHERE LevelName='BorderLevel' ");
-						while(rs.next())
-						{
-							highScore = rs.getInt(1);
-						}
-						break;	
-				
-			case 2:		rs = stmt.executeQuery("SELECT  `HighScore` FROM `highscore` WHERE LevelName='Level-2' ");
-						while(rs.next())
-						{
-							highScore = rs.getInt(1);
-						}
-						break;	
-					
-			case 3:		rs = stmt.executeQuery("SELECT  `HighScore` FROM `highscore` WHERE LevelName='Level-3' ");
-						while(rs.next())
-						{
-							highScore = rs.getInt(1);								
-						}
-						break;	
-					
-		default : System.out.println("\n ERROR");
-		
-		}		
-	}
-	conn.close();
-}
-catch(Exception e)
-{
-	System.out.println("Error detected");
-}*/
-
-					

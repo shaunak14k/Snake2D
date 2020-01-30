@@ -1,9 +1,11 @@
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -16,29 +18,80 @@ import javax.swing.UIManager;
 
 public class MainMenu extends JFrame implements ActionListener
 {
+	//*************************************************************
+	//1) Display "CONGRATS" message for creating new HIGHSCORE
+	//2) Fix the Turning bug
+	//*************************************************************
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JFrame f1 = new JFrame();
-	private String mapS = "classic";
 	
+	JFrame f1 = new JFrame();
+	
+	private String mapS = "classic";
 	private int gtype = 1;
 	
+	private String gtypeLabel = "Single Player";
+	private String levelLabel = "Classic";
 	
 	//If called from MainMenu()
 	
 	
-	public MainMenu(String x) 
+	/*public MainMenu(String x) 
 	{ 
 		f1.setVisible(false);
 		f1.dispose();
 		f1.dispatchEvent(new WindowEvent(f1, WindowEvent.WINDOW_CLOSING));
-	}
+	}*/
+	
 	
 	public MainMenu(int gtype,String mapS)
 	{
+		
+		if(gtype == 1)
+		{
+			gtypeLabel = "Single Player";
+			switch(mapS)
+			{
+				case "classic":	levelLabel = "Classic";
+								break;
+							
+				case "Border":	levelLabel = "Box";
+								break;
+							
+				case "level2":	levelLabel = "Obstacle-1";
+								break;
+							
+				case "level3":	levelLabel = "Obstacle-2";
+								break;
+							
+				default : 	levelLabel = "Classic";
+							break;
+			}
+		}
+		else if(gtype == 2)
+		{
+			gtypeLabel = "Two Players";
+			switch(mapS)
+			{
+				case "game1" :	levelLabel = "Classic";
+								break;
+							
+				case "game2":	levelLabel = "Fastest Finger First";
+								break;
+							
+				case "game3":	levelLabel = "Best of 3";
+								break;
+							
+							
+				default : 	levelLabel = "Classic";
+							break;
+			}
+		}
+		
+		
 		JFrame f = new JFrame();		//Creating JFrame object f
 		
 		JButton start1 = new JButton("New Game");
@@ -46,25 +99,25 @@ public class MainMenu extends JFrame implements ActionListener
 		JButton exit1 = new JButton("Quit");
 		JButton gtypeB = new JButton("Game Type");
 		JButton controls = new JButton("Controls");
-		JButton about = new JButton("About us");
+		JButton credit = new JButton("Credits");
 		
 		//JPanel panel = new JPanel();
 		
 		JLabel lt = new JLabel(new ImageIcon("snake2d.png"));
 		
-		JLabel wallpaper = new JLabel(new ImageIcon("wall5.jpg"));
+		JLabel gtypeL = new JLabel("Game type    -   "+gtypeLabel);
+		JLabel levelL = new JLabel("Level        -   "+levelLabel);
 		
 		//JLabel lmap = new JLabel("Map : ");
 		//JLabel lmap2 = new JLabel(mapS);
 		
 		//Setting some settings for our JFrame
-		f.setTitle("Snake Game");						//Set title of the frame
-		f.setBounds(10 ,10 ,905, 700);					//Set bounds of the frame (borders)
+		f.setTitle("Snake2D");						//Set title of the frame
+		f.setBounds(10 ,10 ,904, 699);					//Set bounds of the frame (borders)
 		f.setResizable(false);							//User cannot resize the frame
-		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.getContentPane().setBackground(Color.DARK_GRAY );
-		f.setLocationRelativeTo(null);
+		f.setLocationRelativeTo(null);	//Frame is in center of screen 
 			
 		//snakehome = new ImageIcon("snakehome.jpg");
 		
@@ -73,18 +126,29 @@ public class MainMenu extends JFrame implements ActionListener
 		f.setLayout(null);
 		//f.add(panel);		//Adding panel to JFrame
 		
-		
-		
-				
+		//Add icon to JFrame
+		ImageIcon icon = new ImageIcon("frameIcon.png");
+		f.setIconImage(icon.getImage());
 		
 		
 		//Settings for Text : SNAKE GAME
 		lt.setBounds(180, 60, 500, 80);	
 		f.add(lt);
-				
 		
+		//exit1.setBounds(300, 525, 290, 65);		//x,y,width,height
+
 		
+		//Settings for text gtypL
+		gtypeL.setFont(new Font("Cooper black", Font.ITALIC, 15));
+		gtypeL.setBounds(50, 520, 500, 16);
+		gtypeL.setForeground(Color.orange);
+		f.add(gtypeL); 
 		
+		//Settings fot text levelL
+		levelL.setFont(new Font("Cooper black", Font.ITALIC, 15));
+		levelL.setBounds(75, 550, 500, 16);
+		levelL.setForeground(Color.orange);
+		f.add(levelL);
 		
 		
 		//Settings for JButton (START GAME)
@@ -207,32 +271,32 @@ public class MainMenu extends JFrame implements ActionListener
 		f.add(controls);		//Adding start button to JFrame
 		
 		//Settings for JButton (CONTROLS)
-		about.setBounds(300, 460, 290, 65);		//x,y,width,height
-		about.setForeground(Color.white);
-		about.setFont(new Font("Cooper black", Font.BOLD, 30));
-		about.setBackground(Color.white);
-		about.setFocusable(false);
-		about.setOpaque(false);
-		about.setBorderPainted(false);
-		about.addMouseListener(new java.awt.event.MouseAdapter() 
+		credit.setBounds(300, 460, 290, 65);		//x,y,width,height
+		credit.setForeground(Color.white);
+		credit.setFont(new Font("Cooper black", Font.BOLD, 30));
+		credit.setBackground(Color.white);
+		credit.setFocusable(false);
+		credit.setOpaque(false);
+		credit.setBorderPainted(false);
+		credit.addMouseListener(new java.awt.event.MouseAdapter() 
 		{
 		    public void mouseEntered(java.awt.event.MouseEvent evt)
 		    {
-		    	about.setOpaque(true);
-		    	about.setBackground(Color.white);
-		    	about.setForeground(Color.darkGray);
+		    	credit.setOpaque(true);
+		    	credit.setBackground(Color.white);
+		    	credit.setForeground(Color.darkGray);
 		    }
 
 		    public void mouseExited(java.awt.event.MouseEvent evt)
 		    {
-		    	about.setOpaque(false);
-		    	about.setBackground(Color.darkGray);
-		    	about.setForeground(Color.white);
+		    	credit.setOpaque(false);
+		    	credit.setBackground(Color.darkGray);
+		    	credit.setForeground(Color.white);
 		    	
 		    }
 		});
 		//panel.add(start1);	//Adding start button to JPanel
-		f.add(about);		//Adding start button to JFrame
+		f.add(credit);		//Adding start button to JFrame
 		
 		
 		//Settings for JButton (EXIT)
@@ -270,8 +334,10 @@ public class MainMenu extends JFrame implements ActionListener
 		
 		
 		//Settings for WALLPAPER
+		JLabel wallpaper = new JLabel(new ImageIcon("wall5.jpg"));
 		wallpaper.setBounds(0, 0, 905, 700);
 		f.add(wallpaper);
+		System.out.println("Wall painted");
 		
 		/*//Settings for Text : MAP :
 		lmap.setFont(new Font("Arial", Font.BOLD, 30));
@@ -290,6 +356,9 @@ public class MainMenu extends JFrame implements ActionListener
 		this.gtype=gtype;
 		this.mapS = mapS;
 		
+		f.setVisible(true);			//Invoke after adding all components
+		//setVisible(true);
+		
 		start1.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e)
@@ -303,7 +372,7 @@ public class MainMenu extends JFrame implements ActionListener
 				
 				//JFrame f1 = new JFrame();
 			        	
-	        	f1.setTitle("Snake Game");		//Set title of the frame
+	        	f1.setTitle("Snake2D");		//Set title of the frame
 	    		f1.setBounds(10 ,10 ,905, 700);	//Set bounds of the frame (borders)
 		   		f1.setResizable(false);			//User cannot resize the frame
 	    		f1.setVisible(true);
@@ -311,6 +380,10 @@ public class MainMenu extends JFrame implements ActionListener
 	    		f1.getContentPane().setBackground(Color.black);		
 	    		f1.setLocationRelativeTo(null);
 	        
+	    		//Add icon to JFrame
+	    		ImageIcon icon = new ImageIcon("frameIcon.png");
+	    		f1.setIconImage(icon.getImage());
+	    		
 	    		/*
 	    		if(mapS == "basic")
 	    			f.add(basicGame);
@@ -436,6 +509,78 @@ public class MainMenu extends JFrame implements ActionListener
 			}
 		});
 		
+		credit.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				f.dispose();
+				
+				JFrame f = new JFrame();		//Creating JFrame object f
+				//Setting some settings for our JFrame
+				f.setTitle("Snake2D");						//Set title of the frame
+				f.setBounds(10 ,10 ,905, 700);					//Set bounds of the frame (borders)
+				f.setResizable(false);							//User cannot resize the frame
+				f.setVisible(true);
+				f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				f.getContentPane().setBackground(Color.DARK_GRAY );
+				f.setLocationRelativeTo(null);
+				f.getContentPane().setLayout(null);
+				
+				//Add icon to JFrame
+				ImageIcon icon = new ImageIcon("frameIcon.png");
+				f.setIconImage(icon.getImage());
+				
+				JButton back = new JButton("Back");
+				//Settings for JButton (EXIT)
+				//back.setBounds(350, 550, 190, 80);		//x,y,width,height
+				//Settings for JButton (START GAME)
+				back.setBounds(350, 550, 200, 65);		//x,y,width,height
+				back.setForeground(Color.white);
+				back.setFont(new Font("Cooper black", Font.PLAIN, 30));
+				back.setBackground(Color.white);
+				back.setFocusable(false); 
+				back.setOpaque(false);
+				back.setBorderPainted(false);
+				back.addMouseListener(new java.awt.event.MouseAdapter() 
+				{
+					public void mouseEntered(java.awt.event.MouseEvent evt) 
+					{
+						back.setOpaque(true);
+						back.setBackground(Color.white);
+						back.setForeground(Color.darkGray);
+					}
+					
+					public void mouseExited(java.awt.event.MouseEvent evt) 
+					{
+						back.setOpaque(false);
+						back.setBackground(Color.darkGray);
+						back.setForeground(Color.white);
+						
+					}
+				});
+				f.add(back);		//Adding start button to JFrame
+				
+				//Settings for WALLPAPER
+				JLabel wallpaper = new JLabel(new ImageIcon("wall7.jpg"));		
+				wallpaper.setBounds(0, 0, 905, 700);
+				f.add(wallpaper);	
+				
+				
+				back.addActionListener(new ActionListener() 
+				{			
+					public void actionPerformed(ActionEvent e)
+					{
+						System.out.println("\n Back to MainMenu");
+						
+						//After clicking (Exit) the game frame should close
+						f.dispose();
+						
+						new MainMenu(gtype,mapS);
+					}
+				});
+			}
+		});
+		
 		
 		exit1.addActionListener(new ActionListener() 
 		{			
@@ -446,6 +591,8 @@ public class MainMenu extends JFrame implements ActionListener
 				System.exit(0);
 			}
 		});
+		
+		
 	}
 	
 	
@@ -465,7 +612,7 @@ public class MainMenu extends JFrame implements ActionListener
 	{
 		JFrame f = new JFrame();		//Creating JFrame object f
 		//Setting some settings for our JFrame
-		f.setTitle("Snake Game");						//Set title of the frame
+		f.setTitle("Snake2D");						//Set title of the frame
 		f.setBounds(10 ,10 ,905, 700);					//Set bounds of the frame (borders)
 		f.setResizable(false);							//User cannot resize the frame
 		f.setVisible(true);
@@ -474,11 +621,13 @@ public class MainMenu extends JFrame implements ActionListener
 		f.setLocationRelativeTo(null);
 		f.getContentPane().setLayout(null);
 		
-		
+		//Add icon to JFrame
+		ImageIcon icon = new ImageIcon("frameIcon.png");
+		f.setIconImage(icon.getImage());
 		
 		JLabel singleP = new JLabel("Single Player : ");
 		//Settings for Text
-		singleP.setFont(new Font("Arial", Font.BOLD, 16));
+		singleP.setFont(new Font("Showcard gothic", Font.PLAIN, 16));
 		singleP.setBounds(15, 15, 500, 18);
 		singleP.setForeground(Color.cyan);
 		//panel.add(singleP);
@@ -486,33 +635,33 @@ public class MainMenu extends JFrame implements ActionListener
 		
 		JLabel singleP1 = new JLabel("UP          -   UP ARROW ");
 		//Settings for Text
-		singleP1.setFont(new Font("Arial", Font.BOLD, 12));
+		singleP1.setFont(new Font("Showcard gothic", Font.PLAIN, 12));
 		singleP1.setBounds(15, 50, 500, 12);
-		singleP1.setForeground(Color.LIGHT_GRAY);
+		singleP1.setForeground(Color.white);
 		//panel.add(singleP);
 		f.add(singleP1);
 		
 		JLabel singleP2 = new JLabel("DOWN   -   DOWN ARROW ");
 		//Settings for Text
-		singleP2.setFont(new Font("Arial", Font.BOLD, 12));
+		singleP2.setFont(new Font("Showcard gothic", Font.PLAIN, 12));
 		singleP2.setBounds(15, 65, 500, 12);
-		singleP2.setForeground(Color.LIGHT_GRAY);
+		singleP2.setForeground(Color.white);
 		//panel.add(singleP);
 		f.add(singleP2);
 		
 		JLabel singleP3 = new JLabel("LEFT      -   LEFT ARROW ");
 		//Settings for Text
-		singleP3.setFont(new Font("Arial", Font.BOLD, 12));
+		singleP3.setFont(new Font("Showcard gothic", Font.PLAIN, 12));
 		singleP3.setBounds(15, 80, 500, 12);
-		singleP3.setForeground(Color.LIGHT_GRAY);
+		singleP3.setForeground(Color.white);
 		//panel.add(singleP);
 		f.add(singleP3);
 		
 		JLabel singleP4 = new JLabel("RIGHT   -   RIGHT ARROW ");
 		//Settings for Text
-		singleP4.setFont(new Font("Arial", Font.BOLD, 12));
+		singleP4.setFont(new Font("Showcard gothic", Font.PLAIN, 12));
 		singleP4.setBounds(15, 95, 500, 12);
-		singleP4.setForeground(Color.LIGHT_GRAY);
+		singleP4.setForeground(Color.white);
 		//panel.add(singleP);
 		f.add(singleP4);
 		
@@ -521,7 +670,7 @@ public class MainMenu extends JFrame implements ActionListener
 		
 		JLabel twoP = new JLabel("Two Players : ");
 		//Settings for Text
-		twoP.setFont(new Font("Arial", Font.BOLD, 16));
+		twoP.setFont(new Font("Showcard gothic", Font.PLAIN, 16));
 		twoP.setBounds(15, 150, 500, 16);
 		twoP.setForeground(Color.cyan);
 		//panel.add(singleP);
@@ -529,39 +678,39 @@ public class MainMenu extends JFrame implements ActionListener
 		
 		JLabel twoPx = new JLabel("GREEN SNAKE ");
 		//Settings for Text
-		twoPx.setFont(new Font("Arial", Font.BOLD, 14));
+		twoPx.setFont(new Font("Showcard gothic", Font.PLAIN, 14));
 		twoPx.setBounds(15, 180, 500, 16);
-		twoPx.setForeground(Color.yellow);
+		twoPx.setForeground(Color.orange);
 		//panel.add(singleP);
 		f.add(twoPx);
 		
-		JLabel twoP1 = new JLabel("UP             -       'W' ");
+		JLabel twoP1 = new JLabel("UP               -       'W' ");
 		//Settings for Text 
-		twoP1.setFont(new Font("Arial", Font.BOLD, 12));
+		twoP1.setFont(new Font("Showcard gothic", Font.PLAIN, 12));
 		twoP1.setBounds(15, 210, 500, 12);
 		twoP1.setForeground(Color.green);
 		//panel.add(singleP);
 		f.add(twoP1);
 		
-		JLabel twoP2 = new JLabel("DOWN      -       'S' ");
+		JLabel twoP2 = new JLabel("DOWN     -       'S' ");
 		//Settings for Text
-		twoP2.setFont(new Font("Arial", Font.BOLD, 12));
+		twoP2.setFont(new Font("Cooper black", Font.PLAIN, 12));
 		twoP2.setBounds(15, 225, 500, 12);
 		twoP2.setForeground(Color.green);
 		//panel.add(singleP);
 		f.add(twoP2);
 		
-		JLabel twoP3 = new JLabel("LEFT         -       'A' ");
+		JLabel twoP3 = new JLabel("LEFT            -       'A' ");
 		//Settings for Text
-		twoP3.setFont(new Font("Arial", Font.BOLD, 12));
+		twoP3.setFont(new Font("Showcard gothic", Font.PLAIN, 12));
 		twoP3.setBounds(15, 240, 500, 12);
 		twoP3.setForeground(Color.green);
 		//panel.add(singleP);
 		f.add(twoP3);
 		
-		JLabel twoP4 = new JLabel("RIGHT      -       'D' ");
+		JLabel twoP4 = new JLabel("RIGHT        -       'D' ");
 		//Settings for Text
-		twoP4.setFont(new Font("Arial", Font.BOLD, 12));
+		twoP4.setFont(new Font("Showcard gothic", Font.PLAIN, 12));
 		twoP4.setBounds(15, 255, 500, 12);
 		twoP4.setForeground(Color.green);
 		//panel.add(singleP);
@@ -571,15 +720,15 @@ public class MainMenu extends JFrame implements ActionListener
 		//**********
 		JLabel twoPrx = new JLabel("RED SNAKE ");
 		//Settings for Text
-		twoPrx.setFont(new Font("Arial", Font.BOLD, 14));
+		twoPrx.setFont(new Font("Showcard gothic", Font.PLAIN, 14));
 		twoPrx.setBounds(250, 180, 500, 16);
-		twoPrx.setForeground(Color.yellow);
+		twoPrx.setForeground(Color.orange);
 		//panel.add(singleP);
 		f.add(twoPrx);
 		
 		JLabel twoPr1 = new JLabel("UP          -   'UP ARROW' ");
 		//Settings for Text
-		twoPr1.setFont(new Font("Arial", Font.BOLD, 12));
+		twoPr1.setFont(new Font("Showcard gothic", Font.PLAIN, 12));
 		twoPr1.setBounds(250, 210, 500, 12);
 		twoPr1.setForeground(Color.red);
 		//panel.add(singleP);
@@ -587,7 +736,7 @@ public class MainMenu extends JFrame implements ActionListener
 		
 		JLabel twoPr2 = new JLabel("DOWN   -   'DOWN ARROW' ");
 		//Settings for Text
-		twoPr2.setFont(new Font("Arial", Font.BOLD, 12));
+		twoPr2.setFont(new Font("Showcard gothic", Font.PLAIN, 12));
 		twoPr2.setBounds(250, 225, 500, 12);
 		twoPr2.setForeground(Color.red);
 		//panel.add(singleP);
@@ -595,7 +744,7 @@ public class MainMenu extends JFrame implements ActionListener
 		
 		JLabel twoPr3 = new JLabel("LEFT      -   'LEFT ARROW' ");
 		//Settings for Text
-		twoPr3.setFont(new Font("Arial", Font.BOLD, 12));
+		twoPr3.setFont(new Font("Showcard gothic", Font.PLAIN, 12));
 		twoPr3.setBounds(250, 240, 500, 12);
 		twoPr3.setForeground(Color.red);
 		//panel.add(singleP);
@@ -603,7 +752,7 @@ public class MainMenu extends JFrame implements ActionListener
 		
 		JLabel twoPr4 = new JLabel("RIGHT   -   'RIGHT ARROW' ");
 		//Settings for Text
-		twoPr4.setFont(new Font("Arial", Font.BOLD, 12));
+		twoPr4.setFont(new Font("Showcard gothic", Font.PLAIN, 12));
 		twoPr4.setBounds(250, 255, 500, 12);
 		twoPr4.setForeground(Color.red);
 		//panel.add(singleP);
@@ -613,17 +762,17 @@ public class MainMenu extends JFrame implements ActionListener
 		
 		JLabel game1 = new JLabel("Classic : ");
 		//Settings for Text
-		game1.setFont(new Font("Arial", Font.BOLD, 16));
+		game1.setFont(new Font("Showcard gothic", Font.PLAIN, 16));
 		game1.setBounds(15, 300, 500, 16);
-		game1.setForeground(Color.yellow);
+		game1.setForeground(Color.orange);
 		//panel.add(singleP);
 		f.add(game1);
 		
 		JLabel game1a = new JLabel("Bigger snake wins.");
 		//Settings for Text
-		game1a.setFont(new Font("Arial", Font.BOLD, 14));
+		game1a.setFont(new Font("Showcard gothic", Font.PLAIN, 14));
 		game1a.setBounds(15, 320, 500, 14);
-		game1a.setForeground(Color.LIGHT_GRAY);
+		game1a.setForeground(Color.green.darker());
 		//panel.add(singleP);
 		f.add(game1a);
 		
@@ -631,17 +780,17 @@ public class MainMenu extends JFrame implements ActionListener
 		
 		JLabel game2 = new JLabel("Fastest Finger First : ");
 		//Settings for Text
-		game2.setFont(new Font("Arial", Font.BOLD, 16));
+		game2.setFont(new Font("Showcard gothic", Font.PLAIN, 16));
 		game2.setBounds(15, 370, 500, 16);
-		game2.setForeground(Color.yellow);
+		game2.setForeground(Color.orange);
 		//panel.add(singleP);
 		f.add(game2);
 		
 		JLabel game2a = new JLabel("Fastest Finger First. First one to kill, wins");
 		//Settings for Text
-		game2a.setFont(new Font("Arial", Font.BOLD, 14));
+		game2a.setFont(new Font("Showcard gothic", Font.PLAIN, 14));
 		game2a.setBounds(15, 390, 500, 14);
-		game2a.setForeground(Color.LIGHT_GRAY);
+		game2a.setForeground(Color.green.darker());
 		//panel.add(singleP);
 		f.add(game2a);
 		
@@ -649,36 +798,64 @@ public class MainMenu extends JFrame implements ActionListener
 		
 		JLabel game3 = new JLabel("Best of 3 : ");
 		//Settings for Text
-		game3.setFont(new Font("Arial", Font.BOLD, 16));
+		game3.setFont(new Font("Showcard gothic", Font.PLAIN, 16));
 		game3.setBounds(15, 440, 500, 16);
-		game3.setForeground(Color.yellow);
+		game3.setForeground(Color.orange);
 		//panel.add(singleP);
 		f.add(game3);
 		
 		JLabel game3a = new JLabel("Best of three between Red Snake and Green Snake.");
 		//Settings for Text
-		game3a.setFont(new Font("Arial", Font.BOLD, 14));
+		game3a.setFont(new Font("Showcard gothic", Font.PLAIN, 14));
 		game3a.setBounds(15, 460, 500, 16);
-		game3a.setForeground(Color.LIGHT_GRAY);
+		game3a.setForeground(Color.green.darker());
 		//panel.add(singleP);
 		f.add(game3a);
 		
-		//Settings for WALLPAPER
-		JLabel wallpaper = new JLabel(new ImageIcon("wall6"));		
-		wallpaper.setBounds(0, 0, 905, 700);
-		f.add(wallpaper);
-
 		
 		//********************************************************************************
 		
 		JButton back = new JButton("Back");
 		//Settings for JButton (EXIT)
-		back.setBounds(350, 550, 190, 80);		//x,y,width,height
-		back.setFont(new Font("Arial", Font.BOLD, 40));
-		back.setBackground(Color.pink);
-		//panel.add(back);		//Adding exit button to JPanel
-		f.add(back);		//Adding exit button to JFrame
+		//back.setBounds(350, 550, 190, 80);		//x,y,width,height
+		//Settings for JButton (START GAME)
+		back.setBounds(350, 550, 200, 65);		//x,y,width,height
+		back.setForeground(Color.white);
+		back.setFont(new Font("Cooper black", Font.PLAIN, 30));
+		back.setBackground(Color.white);
+		back.setFocusable(false); 
+		back.setOpaque(false);
+		back.setBorderPainted(false);
+		//one.setContentAreaFilled(false);
+		//one.setBorderPainted(false);		
+		
+		back.addMouseListener(new java.awt.event.MouseAdapter() 
+		{
+			public void mouseEntered(java.awt.event.MouseEvent evt) 
+			{
+				back.setOpaque(true);
+				back.setBackground(Color.white);
+				back.setForeground(Color.darkGray);
+			}
 			
+			public void mouseExited(java.awt.event.MouseEvent evt) 
+			{
+				back.setOpaque(false);
+				back.setBackground(Color.darkGray);
+				back.setForeground(Color.white);
+				
+			}
+		});
+		f.add(back);		//Adding start button to JFrame
+			
+		
+		
+		//Settings for WALLPAPER
+		JLabel wallpaper = new JLabel(new ImageIcon("wall6.jpg"));		
+		wallpaper.setBounds(0, 0, 905, 700);
+		f.add(wallpaper);
+		
+		
 
 		back.addActionListener(new ActionListener() 
 		{			
@@ -719,7 +896,7 @@ public class MainMenu extends JFrame implements ActionListener
 		
 			
 		//Setting some settings for our JFrame
-		f.setTitle("Snake Game");						//Set title of the frame
+		f.setTitle("Snake2D");						//Set title of the frame
 		f.setBounds(10 ,10 ,905, 700);					//Set bounds of the frame (borders)
 		f.setResizable(false);							//User cannot resize the frame
 		f.setVisible(true);
@@ -729,6 +906,10 @@ public class MainMenu extends JFrame implements ActionListener
 		
 		f.setLayout(null);
 
+		//Add icon to JFrame
+		ImageIcon icon = new ImageIcon("frameIcon.png");
+		f.setIconImage(icon.getImage());
+		
 		
 		//Settings for Text : SNAKE GAME
 		JLabel lt = new JLabel(new ImageIcon("snake2d.png"));
@@ -845,6 +1026,8 @@ public class MainMenu extends JFrame implements ActionListener
 				one.setIcon(new ImageIcon("tick.png"));
 				
 				gtype = 1;
+				
+				gtypeLabel = "Single Player";
 		    }
 		});
 						
@@ -862,6 +1045,9 @@ public class MainMenu extends JFrame implements ActionListener
 				two.setIcon(new ImageIcon("tick.png"));
 				
 				gtype = 2;
+				
+				gtypeLabel = "Two Players";
+				System.out.println("Label changed");
 			}
 		});
 		
@@ -910,209 +1096,215 @@ public class MainMenu extends JFrame implements ActionListener
 
 		}
 			
-			//Setting some settings for our JFrame
-			f.setTitle("Snake Game");						//Set title of the frame
-			f.setBounds(10 ,10 ,905, 700);					//Set bounds of the frame (borders)
-			f.setResizable(false);							//User cannot resize the frame
-			f.setVisible(true);
-			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			f.getContentPane().setBackground(Color.DARK_GRAY );
-			f.setLocationRelativeTo(null);
-				
-			
-			f.setLayout(null);
-			//f.add(panel);		//Adding panel to JFrame
-			
-			//Settings for Text : SNAKE GAME
-			JLabel lt = new JLabel(new ImageIcon("snake2d.png"));
-			lt.setBounds(180, 60, 500, 80);	
-			f.add(lt);
-			
-			
-			//Settings for JButton (START GAME)
-			g1.setBounds(300, 220, 290, 65);		//x,y,width,height
-			g1.setForeground(Color.white);
-			g1.setFont(new Font("Cooper black", Font.BOLD, 30));
-			g1.setBackground(Color.white);
-			g1.setFocusable(false); 
-			g1.setOpaque(false);
-			g1.setBorderPainted(false);
-			//g1.setContentAreaFilled(false);
-			//g1.setBorderPainted(false);
-			g1.addMouseListener(new java.awt.event.MouseAdapter() 
+		//Setting some settings for our JFrame
+		f.setTitle("Snake2D");						//Set title of the frame
+		f.setBounds(10 ,10 ,905, 700);					//Set bounds of the frame (borders)
+		f.setResizable(false);							//User cannot resize the frame
+		f.setVisible(true);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.getContentPane().setBackground(Color.DARK_GRAY );
+		f.setLocationRelativeTo(null);
+		
+		f.setLayout(null);
+		//f.add(panel);		//Adding panel to JFrame
+		
+		//Add icon to JFrame
+		ImageIcon icon = new ImageIcon("frameIcon.png");
+		f.setIconImage(icon.getImage());
+		
+		//Settings for Text : SNAKE GAME
+		JLabel lt = new JLabel(new ImageIcon("snake2d.png"));
+		lt.setBounds(180, 60, 500, 80);	
+		f.add(lt);
+		
+		
+		//Settings for JButton (START GAME)
+		g1.setBounds(300, 220, 290, 65);		//x,y,width,height
+		g1.setForeground(Color.white);
+		g1.setFont(new Font("Cooper black", Font.BOLD, 30));
+		g1.setBackground(Color.white);
+		g1.setFocusable(false); 
+		g1.setOpaque(false);
+		g1.setBorderPainted(false);
+		//g1.setContentAreaFilled(false);
+		//g1.setBorderPainted(false);
+		g1.addMouseListener(new java.awt.event.MouseAdapter() 
+		{
+			public void mouseEntered(java.awt.event.MouseEvent evt) 
 			{
-				public void mouseEntered(java.awt.event.MouseEvent evt) 
-				{
-					g1.setOpaque(true);
-					g1.setBackground(Color.white);
-					g1.setForeground(Color.darkGray);
-				}
-				
-				public void mouseExited(java.awt.event.MouseEvent evt) 
-				{
-					g1.setOpaque(false);
-					g1.setBackground(Color.darkGray);
-					g1.setForeground(Color.white);
-					
-				}
-			});
-			f.add(g1);		//Adding start button to JFrame
+				g1.setOpaque(true);
+				g1.setBackground(Color.white);
+				g1.setForeground(Color.darkGray);
+			}
 			
-			//Settings for JButton (START GAME)
-			g2.setBounds(245, 285, 400, 65);		//x,y,width,height
-			g2.setForeground(Color.white);
-			g2.setFont(new Font("Cooper black", Font.BOLD, 30));
-			g2.setBackground(Color.white);
-			g2.setFocusable(false); 
-			g2.setOpaque(false);
-			g2.setBorderPainted(false);
-			//g2.setContentAreaFilled(false);
-			//g2.setBorderPainted(false);
-			g2.addMouseListener(new java.awt.event.MouseAdapter() 
+			public void mouseExited(java.awt.event.MouseEvent evt) 
 			{
-				public void mouseEntered(java.awt.event.MouseEvent evt) 
-				{
-					g2.setOpaque(true);
-					g2.setBackground(Color.white);
-					g2.setForeground(Color.darkGray);
-				}
+				g1.setOpaque(false);
+				g1.setBackground(Color.darkGray);
+				g1.setForeground(Color.white);
 				
-				public void mouseExited(java.awt.event.MouseEvent evt) 
-				{
-					g2.setOpaque(false);
-					g2.setBackground(Color.darkGray);
-					g2.setForeground(Color.white);
-					
-				}
-			});
-			f.add(g2);		//Adding start button to JFrame
-			
-			
-			//Settings for JButton (START GAME)
-			g3.setBounds(300, 350, 290, 65);		//x,y,width,height
-			g3.setForeground(Color.white);
-			g3.setFont(new Font("Cooper black", Font.BOLD, 30));
-			g3.setBackground(Color.white);
-			g3.setFocusable(false); 
-			g3.setOpaque(false);
-			g3.setBorderPainted(false);
-			//one.setContentAreaFilled(false);
-			//one.setBorderPainted(false);
-			g3.addMouseListener(new java.awt.event.MouseAdapter() 
+			}
+		});	
+		f.add(g1);		//Adding start button to JFrame
+		
+		//Settings for JButton (START GAME)
+		g2.setBounds(245, 285, 400, 65);		//x,y,width,height
+		g2.setForeground(Color.white);
+		g2.setFont(new Font("Cooper black", Font.BOLD, 30));
+		g2.setBackground(Color.white);
+		g2.setFocusable(false); 
+		g2.setOpaque(false);
+		g2.setBorderPainted(false);
+		//g2.setContentAreaFilled(false);
+		//g2.setBorderPainted(false);
+		g2.addMouseListener(new java.awt.event.MouseAdapter() 
+		{
+			public void mouseEntered(java.awt.event.MouseEvent evt) 
 			{
-				public void mouseEntered(java.awt.event.MouseEvent evt) 
-				{
-					g3.setOpaque(true);
-					g3.setBackground(Color.white);
-					g3.setForeground(Color.darkGray);
-				}
-				
-				public void mouseExited(java.awt.event.MouseEvent evt) 
-				{
-					g3.setOpaque(false);
-					g3.setBackground(Color.darkGray);
-					g3.setForeground(Color.white);
+				g2.setOpaque(true);
+				g2.setBackground(Color.white);
+				g2.setForeground(Color.darkGray);
+			}
 					
-				}
-			});
-			f.add(g3);		//Adding start button to JFrame
+			public void mouseExited(java.awt.event.MouseEvent evt) 
+			{
+				g2.setOpaque(false);
+				g2.setBackground(Color.darkGray);
+				g2.setForeground(Color.white);
+			}
+		});
+		f.add(g2);		//Adding start button to JFrame
+			
+			
+		//Settings for JButton (START GAME)
+		g3.setBounds(300, 350, 290, 65);		//x,y,width,height
+		g3.setForeground(Color.white);
+		g3.setFont(new Font("Cooper black", Font.BOLD, 30));
+		g3.setBackground(Color.white);
+		g3.setFocusable(false); 
+		g3.setOpaque(false);
+		g3.setBorderPainted(false);
+		//one.setContentAreaFilled(false);
+		//one.setBorderPainted(false);
+		g3.addMouseListener(new java.awt.event.MouseAdapter() 
+		{
+			public void mouseEntered(java.awt.event.MouseEvent evt) 
+			{
+				g3.setOpaque(true);
+				g3.setBackground(Color.white);
+				g3.setForeground(Color.darkGray);
+			}
+				
+			public void mouseExited(java.awt.event.MouseEvent evt) 
+			{
+				g3.setOpaque(false);
+				g3.setBackground(Color.darkGray);
+				g3.setForeground(Color.white);
+			}
+		});
+		f.add(g3);		//Adding start button to JFrame
 								
-					
-			//Settings for JButton (START GAME)
-			back.setBounds(350, 480, 200, 65);		//x,y,width,height
-			back.setForeground(Color.white);
-			back.setFont(new Font("Cooper black", Font.BOLD, 30));
-			back.setBackground(Color.white);
-			back.setFocusable(false); 
-			back.setOpaque(false);
-			back.setBorderPainted(false);
-			//back.setContentAreaFilled(false);
-			//back.setBorderPainted(false);
-			back.addMouseListener(new java.awt.event.MouseAdapter() 
+		
+		//Settings for JButton (START GAME)
+		back.setBounds(350, 480, 200, 65);		//x,y,width,height
+		back.setForeground(Color.white);
+		back.setFont(new Font("Cooper black", Font.BOLD, 30));
+		back.setBackground(Color.white);
+		back.setFocusable(false); 
+		back.setOpaque(false);
+		back.setBorderPainted(false);
+		//back.setContentAreaFilled(false);
+		//back.setBorderPainted(false);
+		back.addMouseListener(new java.awt.event.MouseAdapter() 
+		{
+			public void mouseEntered(java.awt.event.MouseEvent evt) 
 			{
-				public void mouseEntered(java.awt.event.MouseEvent evt) 
-				{
-					back.setOpaque(true);
-					back.setBackground(Color.white);
-					back.setForeground(Color.darkGray);
-				}
+				back.setOpaque(true);
+				back.setBackground(Color.white);
+				back.setForeground(Color.darkGray);
+			}
 				
-				public void mouseExited(java.awt.event.MouseEvent evt) 
-				{
-					back.setOpaque(false);
-					back.setBackground(Color.darkGray);
-					back.setForeground(Color.white);
-					
-				}
-			});
-			f.add(back);		//Adding start button to JFrame
-			
-			
-			//Settings for WALLPAPER
-			JLabel wallpaper = new JLabel(new ImageIcon("Wall5.jpg"));		
-			wallpaper.setBounds(0, 0, 905, 700);
-			f.add(wallpaper);
-			
-			
-			g1.addActionListener(new ActionListener() 
+			public void mouseExited(java.awt.event.MouseEvent evt) 
 			{
-				public void actionPerformed(ActionEvent e)
-				{
-					System.out.println("\n Classic is selected");
-					
-					g1.setIcon(new ImageIcon("tick.png"));
-					g2.setIcon(null);
-					g3.setIcon(null);
-					
-					mapS = "game1";
-			    }
-			});
-							
-					
-			g2.addActionListener(new ActionListener() 
-			{			
-				public void actionPerformed(ActionEvent e)
-				{
-					System.out.println("\n Fastest-finger-first is selected");
-
-					g1.setIcon(null);
-					g2.setIcon(new ImageIcon("tick.png"));
-					g3.setIcon(null);
-					
-					mapS = "game2";
-				}
-			});
+				back.setOpaque(false);
+				back.setBackground(Color.darkGray);
+				back.setForeground(Color.white);
+			}
+		});
+		f.add(back);		//Adding start button to JFrame
 			
-			g3.addActionListener(new ActionListener() 
-			{			
-				public void actionPerformed(ActionEvent e)
-				{
-					System.out.println("\n Best of 3 is selected");
-					
-					g1.setIcon(null);
-					g2.setIcon(null);
-					g3.setIcon(new ImageIcon("tick.png"));
+			
+		//Settings for WALLPAPER
+		JLabel wallpaper = new JLabel(new ImageIcon("Wall5.jpg"));		
+		wallpaper.setBounds(0, 0, 905, 700);
+		f.add(wallpaper);
+		
+		
+		g1.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println("\n Classic is selected");
+				
+				g1.setIcon(new ImageIcon("tick.png"));
+				g2.setIcon(null);
+				g3.setIcon(null);
+				
+				mapS = "game1";
+				
+				levelLabel = "Classic";
+			}
+		});	
 							
-					mapS = "game3";
-				}
-			});
+		
+		g2.addActionListener(new ActionListener() 
+		{			
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println("\n Fastest-finger-first is selected");
+				
+				g1.setIcon(null);
+				g2.setIcon(new ImageIcon("tick.png"));
+				g3.setIcon(null);
+				
+				mapS = "game2";
+				
+				levelLabel = "F-F-F";
+			}
+		});
+		
+		g3.addActionListener(new ActionListener() 
+		{			
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println("\n Best of 3 is selected");
+				
+				g1.setIcon(null);
+				g2.setIcon(null);
+				g3.setIcon(new ImageIcon("tick.png"));
+				
+				mapS = "game3";
+			
+				levelLabel = "Best of 3";
+			}
+		});
 			
 					
 					
-			back.addActionListener(new ActionListener() 
-			{			
-				public void actionPerformed(ActionEvent e)
-				{
-					System.out.println("\n Back to MainMenu");
-					
-					//After clicking (Exit) the game frame should close
-					f.dispose();
-					
-					new MainMenu(gtype,mapS);
-				}
-			});
+		back.addActionListener(new ActionListener() 
+		{			
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println("\n Back to MainMenu");
+				
+				//After clicking (Exit) the game frame should close
+				f.dispose();
+				
+				new MainMenu(gtype,mapS);
+			}
+		});
 
-		}
+	}
 
 	
 	
@@ -1149,16 +1341,18 @@ public class MainMenu extends JFrame implements ActionListener
 		
 		
 		//Setting some settings for our JFrame
-		f.setTitle("Snake Game");						//Set title of the frame
+		f.setTitle("Snake2D");						//Set title of the frame
 		f.setBounds(10 ,10 ,905, 700);					//Set bounds of the frame (borders)
 		f.setResizable(false);							//User cannot resize the frame
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.getContentPane().setBackground(Color.DARK_GRAY );
 		f.setLocationRelativeTo(null);
-			
-		
 		f.setLayout(null);
+
+		//Add icon to JFrame
+		ImageIcon icon = new ImageIcon("frameIcon.png");
+		f.setIconImage(icon.getImage());
 		
 		//Settings for Text : SNAKE GAME
 		JLabel lt = new JLabel(new ImageIcon("snake2d.png"));
@@ -1334,6 +1528,8 @@ public class MainMenu extends JFrame implements ActionListener
 				level3.setIcon(null);
 				
 				mapS = "classic";
+				
+				levelLabel = "Classic";
 		    }
 		});
 						
@@ -1350,6 +1546,8 @@ public class MainMenu extends JFrame implements ActionListener
 				level3.setIcon(null);
 				
 				mapS = "Border";
+				
+				levelLabel = "Box";
 			}
 		});
 		
@@ -1365,6 +1563,8 @@ public class MainMenu extends JFrame implements ActionListener
 				level3.setIcon(null);
 						
 				mapS = "level2";
+				
+				levelLabel = "Obstacle-1";
 			}
 		});
 		
@@ -1380,6 +1580,8 @@ public class MainMenu extends JFrame implements ActionListener
 				level3.setIcon(new ImageIcon("tick.png"));
 						
 				mapS = "level3";
+				
+				levelLabel = "Obstacle-2";
 			}
 		});
 		

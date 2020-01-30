@@ -59,7 +59,7 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 	
 	private Timer timer;
 	
-	private int delay = 150;
+	private int delay = 110;
 	
 	private int snakeTotalLength1 = 10;
 	private int snakeTotalLength2 = 10;
@@ -539,7 +539,7 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 		//new MainMenu("clear");		//To clear the previous JFrame of the game
 		
 		
-		Level4Win g1 = new Level4Win(2,"game1");
+		TwoPlayerWin g1 = new TwoPlayerWin(2,"game1");
 		g1.GameWin(winner);
 		
 		f1.dispose();
@@ -781,6 +781,15 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 				return;
 			}
 			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(up2 || down2)
+			{
+				if(snakeYLength2[0] == snakeYLength2[1])
+					return;
+			}
+			//*************************************************************************
+			
 			moves2++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
@@ -810,7 +819,14 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 				return;
 			}
 			
-			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(up2 || down2)
+			{
+				if(snakeYLength2[0] == snakeYLength2[1])
+					return;
+			}
+			//*************************************************************************
 			
 			moves2++;
 			
@@ -841,6 +857,15 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 				return;
 			}
 			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(left2 || right2)
+			{
+				if(snakeXLength2[0] == snakeXLength2[1])
+					return;
+			}
+			//*************************************************************************
+			
 			moves2++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
@@ -869,6 +894,16 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 			{
 				return;
 			}
+			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(left2 || right2)
+			{
+				if(snakeXLength2[0] == snakeXLength2[1])
+					return;
+			}
+			//*************************************************************************
+			
 			moves2++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
@@ -900,6 +935,15 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 			{
 				return;
 			}
+			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(up1 || down1)
+			{
+				if(snakeYLength1[0] == snakeYLength1[1])
+					return;
+			}
+			//*************************************************************************
 			
 			moves1++;
 			
@@ -936,6 +980,15 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 				return;
 			}
 			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(up1 || down1)
+			{
+				if(snakeYLength1[0] == snakeYLength1[1])
+					return;
+			}
+			//*************************************************************************
+			
 			moves1++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
@@ -965,6 +1018,15 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 				return;
 			}
 			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(left1 || right1)
+			{
+				if(snakeXLength1[0] == snakeXLength1[1])
+					return;
+			}
+			//*************************************************************************
+			
 			moves1++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
@@ -993,6 +1055,16 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 			{
 				return;
 			}
+			
+			//*********************************************************************
+			//FIX THE TURNING BUG
+			if(left1 || right1)
+			{
+				if(snakeXLength1[0] == snakeXLength1[1])
+					return;
+			}
+			//*************************************************************************
+			
 			moves1++;
 			
 			// The snake cannot turn in opposite direction as this will result with collision to its own body
@@ -1127,6 +1199,8 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 			left2=false;
 			
 			pause = true;
+			
+			f1.dispose();
 			
 			PauseMenu ob = new PauseMenu(2,"game1");	
 			ob.PauseMenuF(f1);			
