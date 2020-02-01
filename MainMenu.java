@@ -1,22 +1,14 @@
 import java.awt.Color;
-import java.awt.Component;
+
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.util.List;
-
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.UIManager;
 
-public class MainMenu extends JFrame implements ActionListener
+public class MainMenu extends JFrame implements ActionListener 
 {
 	//*************************************************************
 	//1) Display "CONGRATS" message for creating new HIGHSCORE
@@ -30,11 +22,11 @@ public class MainMenu extends JFrame implements ActionListener
 	
 	JFrame f1 = new JFrame();
 	
-	private String mapS = "classic";
+	private String mapS = "classic";	//to print on board
 	private int gtype = 1;
 	
-	private String gtypeLabel = "Single Player";
-	private String levelLabel = "Classic";
+	private String gtypeLabel = "Single Player";	//To print on main menu
+	private String levelLabel = "Classic"; 		
 	
 	//If called from MainMenu()
 	
@@ -518,9 +510,8 @@ public class MainMenu extends JFrame implements ActionListener
 				JFrame f = new JFrame();		//Creating JFrame object f
 				//Setting some settings for our JFrame
 				f.setTitle("Snake2D");						//Set title of the frame
-				f.setBounds(10 ,10 ,905, 700);					//Set bounds of the frame (borders)
+				f.setBounds(10 ,10 ,904, 699);					//Set bounds of the frame (borders)
 				f.setResizable(false);							//User cannot resize the frame
-				f.setVisible(true);
 				f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				f.getContentPane().setBackground(Color.DARK_GRAY );
 				f.setLocationRelativeTo(null);
@@ -534,7 +525,7 @@ public class MainMenu extends JFrame implements ActionListener
 				//Settings for JButton (EXIT)
 				//back.setBounds(350, 550, 190, 80);		//x,y,width,height
 				//Settings for JButton (START GAME)
-				back.setBounds(350, 550, 200, 65);		//x,y,width,height
+				back.setBounds(350, 500, 200, 65);		//x,y,width,height
 				back.setForeground(Color.white);
 				back.setFont(new Font("Cooper black", Font.PLAIN, 30));
 				back.setBackground(Color.white);
@@ -560,8 +551,44 @@ public class MainMenu extends JFrame implements ActionListener
 				});
 				f.add(back);		//Adding start button to JFrame
 				
+				JLabel cred = new JLabel("Credits");
+				//Settings for Text
+				cred.setFont(new Font("Matura mt script capitals", Font.PLAIN, 50));
+				cred.setBounds(360, 50, 500, 60);
+				cred.setForeground(Color.red);
+				f.add(cred);
+				
+				JLabel CandP = new JLabel("Concept & Programming");
+				//Settings for Text
+				CandP.setFont(new Font("Matura mt script capitals", Font.PLAIN, 30));
+				CandP.setBounds(280, 170, 500, 40);
+				CandP.setForeground(Color.green.darker());
+				f.add(CandP);
+				
+				JLabel c1 = new JLabel("Shaunak Khatavkar");
+				//Settings for Text
+				c1.setFont(new Font("Matura mt script capitals", Font.PLAIN, 25));
+				c1.setBounds(340, 215, 500, 30);
+				c1.setForeground(Color.orange);
+				f.add(c1);
+				
+				JLabel guidance = new JLabel("Guidance");
+				//Settings for Text
+				guidance.setFont(new Font("Matura mt script capitals", Font.PLAIN, 30));
+				guidance.setBounds(390, 310, 500, 40);
+				guidance.setForeground(Color.green.darker());
+				f.add(guidance);
+				
+				JLabel c2 = new JLabel("Mrs. Shilpa Khadilkar");
+				//Settings for Text
+				c2.setFont(new Font("Matura mt script capitals", Font.PLAIN, 25));
+				c2.setBounds(320, 355, 500, 30);
+				c2.setForeground(Color.orange);
+				f.add(c2);
+				
+				
 				//Settings for WALLPAPER
-				JLabel wallpaper = new JLabel(new ImageIcon("wall7.jpg"));		
+				JLabel wallpaper = new JLabel(new ImageIcon("wall6.jpg"));		
 				wallpaper.setBounds(0, 0, 905, 700);
 				f.add(wallpaper);	
 				
@@ -578,7 +605,10 @@ public class MainMenu extends JFrame implements ActionListener
 						new MainMenu(gtype,mapS);
 					}
 				});
+				
+				f.setVisible(true);
 			}
+			
 		});
 		
 		

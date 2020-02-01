@@ -1,10 +1,8 @@
 import java.io.BufferedWriter;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Scanner;
 
 public class UpdateHighScore 
@@ -148,6 +146,7 @@ public class UpdateHighScore
 		return newHighScore;
 	}
 	
+	
 	//*************************************************************************************************************************************************
 	//DISPLAY ON BOARD
 	
@@ -173,7 +172,7 @@ public class UpdateHighScore
 				
 				cnt++;
 				
-				System.out.println(cnt);
+				//System.out.println(cnt);
 				
 				switch(cnt)  
 				{
@@ -189,7 +188,8 @@ public class UpdateHighScore
 				case 4:	obs2HS = scanner.nextLine();	
 						break;
 				}
-			}			
+			}
+			scanner.close();
 		}
 		catch (IOException e) 
 		{

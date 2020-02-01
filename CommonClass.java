@@ -1,18 +1,17 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
-public class CommonClass extends JPanel implements KeyListener,ActionListener
+public class CommonClass extends JPanel 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ImageIcon titleImage;
 	private ImageIcon rightMouth;
 	private ImageIcon leftMouth;
@@ -21,28 +20,8 @@ public class CommonClass extends JPanel implements KeyListener,ActionListener
 	private ImageIcon snakeImage;
 
 	boolean right,left,up,down;
-	private boolean pause;
-	private int pauseDir;
-	private int moves;
-	private int[] snakeXLength;
-	private int[] snakeYLength;
-	private int snakeLength; 
 
-	public CommonClass(boolean right,boolean left,boolean up,boolean down,boolean pause,int moves,int pauseDir,int snakeXLength[],int snakeYLength[],int snakeLength)
-	{
-		this.right=right;
-		this.up=up;
-		this.left=left;
-		this.down=down;
-		this.moves=moves;
-		this.pause=pause;
-		this.pauseDir=pauseDir;
-		this.snakeXLength=snakeXLength;
-		this.snakeYLength=snakeYLength;
-		this.snakeLength=snakeLength;
-		
-		addKeyListener(this);
-	}
+	
 	
 	public CommonClass()
 	{}
@@ -312,29 +291,6 @@ public class CommonClass extends JPanel implements KeyListener,ActionListener
 		g.drawString("Red      : "+p2score, 770, 50);
 	}
 
-	
-
-	@Override
-	public void keyPressed(KeyEvent e) 
-	{
-		
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) 
-	{
-		
-	}
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	
 	

@@ -1,7 +1,7 @@
 import java.awt.BasicStroke;
 
+
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
@@ -26,16 +26,17 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private ImageIcon titleImage;		//Title of the game
+	//private ImageIcon titleImage;		//Title of the game
 	
 	private boolean play = true;
 	
 	//Images for the snake
-	private ImageIcon rightMouth;		 
+	/*private ImageIcon rightMouth;		 
 	private ImageIcon leftMouth;
 	private ImageIcon upMouth;
 	private ImageIcon downMouth;
 	private ImageIcon snakeImage;
+	*/
 	
 	private int snakeXLength[] = new int[750]; 		//X coordinate
 	private int snakeYLength[] = new int[750];		//Y coordinate

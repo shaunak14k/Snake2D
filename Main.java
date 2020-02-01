@@ -1,20 +1,5 @@
-import java.io.BufferedReader;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.sql.SQLException;
-
-
-import java.io.*;
-import java.util.*;
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
+//import javazoom.jl.player.Player;
 
 
 public class Main
@@ -26,12 +11,12 @@ public class Main
 		//new MainMenu();
 		
 		
-		int x=1;
+		//int x=1;
 		System.out.println("\nGame has started");
 		
 		
 		
-		Player player; 
+	//	Player player; 
 		
 		
 			
@@ -54,7 +39,7 @@ public class Main
 				//System.out.println("\nGame music is playing - "+x);
 				
 				//player.play();
-				x++;
+				//x++;
 				 
 			}
 				  

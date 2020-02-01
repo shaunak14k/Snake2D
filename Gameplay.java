@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -469,7 +468,7 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 			down = false;	
 			
 			repaint();
-			
+			 
 		}
 		if(e.getKeyCode() == KeyEvent.VK_UP)			//if up arrow is pressed (moves++)
 		{
