@@ -41,6 +41,7 @@ public class MainMenu extends JFrame implements ActionListener
 	
 	public MainMenu(int gtype,String mapS)
 	{
+		//to print details on main menu frame
 		
 		if(gtype == 1)
 		{

@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -75,7 +76,20 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 
 	int highScore = 0;
 	
+	private int bigEnemyCount = 0;
+	
 	JFrame f1 = new JFrame();
+
+	private ImageIcon bigEnemyImage;
+
+	private int[] bigEnemyXpos = {125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,600,625,650,675,700,725,750};
+	private int[] bigEnemyYpos = {150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550};
+	
+	private int xPosBig = random.nextInt(25);
+	private int yPosBig = random.nextInt(16);
+
+
+	private boolean showBigEnemy = false;
 	
 	public Gameplay(JFrame f1)
 	{	
@@ -133,14 +147,11 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 			snakeYLength[2] = 100;
 		}
 		//Text to Resume
-				
-		
 		
 		
 		//Paint board and text on the board	
 		CommonClass c = new CommonClass();
-		c.paint(g,score,snakeLength,pause,map,left,right,up,down,snakeXLength,snakeYLength,pauseDir);
-		
+		c.paint(g,score,snakeLength,pause,map,left,right,up,down,snakeXLength,snakeYLength,pauseDir,false);
 		
 		
 		enemyImage = new ImageIcon("enemy.png");
@@ -175,6 +186,78 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 			xPos = random.nextInt(34);
 			yPos = random.nextInt(23);
 		}
+		
+		//************For bigEnemy******************************************************************
+		if(score%10==0 && score!=0)
+		{
+			showBigEnemy  = true;
+		}
+		
+		if(showBigEnemy)
+		{
+			//System.out.println("YES");
+			if(bigEnemyCount < 50)
+			{
+				bigEnemyImage = new ImageIcon("bigEnemy.png");
+				bigEnemyImage.paintIcon(this, g, bigEnemyXpos[xPosBig], bigEnemyYpos[yPosBig]);
+				
+				g.setColor(Color.lightGray);
+				g.drawRect(250, 600, 400, 5);
+				g.setColor(Color.white);
+				g.fillRect(250, 600, 400-(bigEnemyCount*8), 5);
+				
+				//Check if snake collides the enemy
+				if((snakeXLength[0] > bigEnemyXpos[xPosBig]-25 && snakeXLength[0] < bigEnemyXpos[xPosBig]+75) && (snakeYLength[0] > bigEnemyYpos[yPosBig]-25 && snakeYLength[0] < bigEnemyYpos[yPosBig]+75)) 
+				{
+					score += 3;
+
+					//repaint();
+				
+					snakeLength += 3;
+				
+					bigEnemyCount = 0;
+					
+					showBigEnemy = false;
+			
+					//Check if player wins 
+					if(snakeLength == 574)
+					{			
+						repaint();
+						gWin();
+					}
+			
+					
+					//Increase speed after every enemy is killed
+					if(delay>55)
+					{
+						delay--;
+						timer.stop();
+						timer = new Timer(delay, this);		//Timer(speed, object on which timer will work)
+						timer.start();
+					}
+					//Again generate random var for position new enemy
+					xPosBig = random.nextInt(25);
+					yPosBig = random.nextInt(16);
+				}
+			
+				bigEnemyCount++;
+			}
+			
+			else
+			{
+				bigEnemyCount = 0;
+			
+				showBigEnemy = false;
+			
+				//Again generate random var for position new enemy
+				xPosBig = random.nextInt(25);
+				yPosBig = random.nextInt(16);
+			}	
+		
+		}
+		//****************************************************************************888
+		
+		
 		
 		for(int i=1; i<snakeLength ;i++)		//i=1 because at [0] there is head of the snake
 		{
@@ -233,7 +316,8 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 			}
 		}
 		
-		
+		//bigEnemyCount++;
+		System.out.println("enemyCOunt : "+bigEnemyCount);
 		//g.dispose();	//Clear the frame for new components
 		
 	}
@@ -372,7 +456,6 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 			repaint();	//Refresh the screen
 		}
 		
-		
 	}
 	
 //****************************************************************************************************************************
@@ -421,6 +504,9 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 			up = false;
 			down = false;	
 			
+			if(showBigEnemy)
+				bigEnemyCount--;
+			
 			repaint();
 			
 		}
@@ -465,10 +551,12 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 				right = true;
 			}
 			up = false;
-			down = false;	
+			down = false;
+			
+			if(showBigEnemy)
+				bigEnemyCount--;
 			
 			repaint();
-			 
 		}
 		if(e.getKeyCode() == KeyEvent.VK_UP)			//if up arrow is pressed (moves++)
 		{
@@ -504,6 +592,9 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 			}
 			left = false;
 			right = false;
+			
+			if(showBigEnemy)
+				bigEnemyCount--;
 			
 			repaint();
 			
@@ -543,6 +634,9 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 			}
 			left = false;
 			right = false;
+			
+			if(showBigEnemy)
+				bigEnemyCount--;
 			
 			repaint();
 			

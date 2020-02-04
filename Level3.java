@@ -137,7 +137,7 @@ public class Level3 extends JPanel implements KeyListener,ActionListener
 		
 		//Paint board and text on the board	
 				CommonClass c = new CommonClass();
-				c.paint(g,score,snakeLength,pause,map,left,right,up,down,snakeXLength,snakeYLength,pauseDir);
+				c.paint(g,score,snakeLength,pause,map,left,right,up,down,snakeXLength,snakeYLength,pauseDir,false);
 		
 		
 		//Draw obstacles of Level3

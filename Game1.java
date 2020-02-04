@@ -804,7 +804,9 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 			up2 = false;
 			down2 = false;	
 			
-			//repaint();
+			timerCount--;
+			
+			repaint();
 			
 		}
 		if(e.getKeyCode() == KeyEvent.VK_LEFT)			//if left1 arrow is pressed (moves1++)
@@ -842,7 +844,9 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 			up2 = false;
 			down2 = false;	
 			
-			//repaint();
+			timerCount--;
+			
+			repaint();
 			
 		}
 		if(e.getKeyCode() == KeyEvent.VK_UP)			//if up1 arrow is pressed (moves1++)
@@ -880,7 +884,9 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 			left2 = false;
 			right2 = false;	
 			
-			//repaint();
+			timerCount--;
+			
+			repaint();
 			
 		}
 		if(e.getKeyCode() == KeyEvent.VK_DOWN)			//if down1 arrow is pressed (moves1++)
@@ -918,7 +924,9 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 			left2 = false;
 			right2 = false;	
 			
-			//repaint();
+			timerCount--;
+			
+			repaint();
 			
 		}
 		
@@ -959,7 +967,9 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 			up1 = false;
 			down1 = false;	
 			
-			//repaint();
+			timerCount--;
+			
+			repaint();
 			
 		}
 		if(e.getKeyCode() == KeyEvent.VK_A)			//if left1 arrow is pressed (moves1++)
@@ -1003,7 +1013,9 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 			up1 = false;
 			down1 = false;	
 			
-			//repaint();
+			timerCount--;
+			
+			repaint();
 			
 		}
 		if(e.getKeyCode() == KeyEvent.VK_W)			//if up1 arrow is pressed (moves1++)
@@ -1041,7 +1053,9 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 			left1 = false;
 			right1 = false;	
 			
-			//repaint();
+			timerCount--;
+			
+			repaint();
 			
 		}
 		if(e.getKeyCode() == KeyEvent.VK_S)			//if down1 arrow is pressed (moves1++)
@@ -1079,7 +1093,9 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 			left1 = false;
 			right1 = false;	
 			
-			//repaint();
+			timerCount--;
+			
+			repaint();
 			
 		}
 		

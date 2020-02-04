@@ -136,7 +136,7 @@ public class Level2 extends JPanel implements KeyListener,ActionListener
 		//Borders of title image
 		//Paint board and text on the board	
 				CommonClass c = new CommonClass();
-				c.paint(g,score,snakeLength,pause,map,left,right,up,down,snakeXLength,snakeYLength,pauseDir);
+				c.paint(g,score,snakeLength,pause,map,left,right,up,down,snakeXLength,snakeYLength,pauseDir,false);
 		
 		
 		//Draw obstacles of Level2

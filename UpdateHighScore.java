@@ -222,6 +222,12 @@ public class UpdateHighScore
 	
 	//*********************************************************************************************************************************8
 		
+	
+	//For load game
+	void loadGame()
+	{
+		
+	}
 		
 		//FOR DATABASE CONNECTION (MYSQL)
 		/*

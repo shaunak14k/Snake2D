@@ -75,7 +75,24 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 	private String map = "Box";
 
 	JFrame f1 = new JFrame();
-	
+
+	private ImageIcon oneupImage;
+
+	private int[] oneupXpos =  {25,50,75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,600,625,650,675,700,725,750,775,800,825,850};
+	private int[] oneupYpos = {75,100,125,150,175,200,225,250,275,300,325,350,375,400,425,450,475,500,525,550,575,600,625};
+
+	private int xPosOneup = random.nextInt(34);
+	private int yPosOneup = random.nextInt(23);
+
+	private boolean inv = false;
+
+
+	private boolean showInv = false;
+
+	private int invCount = 0;
+
+	private int invTime = 0;
+
 	public BorderGame(JFrame f1)
 	{	
 		this.f1 = f1;
@@ -131,7 +148,7 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 		
 		//Paint board and text on the board	
 		CommonClass c = new CommonClass();
-		c.paint(g,score,snakeLength,pause,map,left,right,up,down,snakeXLength,snakeYLength,pauseDir);
+		c.paint(g,score,snakeLength,pause,map,left,right,up,down,snakeXLength,snakeYLength,pauseDir,inv);
 	
 		
 		//Draw border for the snake to collide
@@ -178,30 +195,122 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 			yPos = random.nextInt(23);
 		}
 		
-		for(int i=1; i<snakeLength ;i++)		//i=1 because at [0] there is head of the snake
+		
+		//**********for invinsible snake*******************
+		
+		if(score%10 ==0 && score!=0)
 		{
-			// if x and y position of any body part of snake is same as x and y position of head of the snake
-			if(snakeXLength[i] == snakeXLength[0] && snakeYLength[i] == snakeYLength[0])		//If snake collides with itself
+			showInv = true;
+		}
+		
+		if(showInv)
+		{
+			//System.out.println("YES");
+			if(invCount   < 50)
 			{
-				gOver();
+				oneupImage = new ImageIcon("invImage.png");
+				oneupImage.paintIcon(this, g, oneupXpos[xPosOneup], oneupYpos[yPosOneup]);
+			
+				g.setColor(Color.lightGray);
+				g.drawRect(250, 600, 400, 5);
+				g.setColor(Color.white);
+				g.fillRect(250, 600, 400-(invCount*8), 5);
+			
+				//Check if snake collides the enemy
+				if(oneupXpos[xPosOneup] == snakeXLength[0]  && oneupYpos[yPosOneup] == snakeYLength[0])			//snakeXYLength[0] is head of the snake
+				{			
+					inv  = true;
+				
+					invCount = 0;
+					
+					showInv = false;
+					
+					score++;
+					
+					//Check if player wins 
+					if(snakeLength == 574)
+					{			
+						repaint();
+						gWin();
+					}	
+				
+					//Increase speed after every enemy is killed
+					if(delay>70)
+					{
+						delay--;
+						timer.stop();
+						timer = new Timer(delay, this);		//Timer(speed, object on which timer will work)
+						timer.start();
+					}	
+				
+					//Again generate random var for position new enemy
+					xPosOneup = random.nextInt(34);
+					yPosOneup = random.nextInt(23);
+				}
+				invCount++;
+			}
+			else
+			{
+				invCount = 0;
+					
+				inv = false;
+				
+				showInv = false;
+
+				//Again generate random var for position new enemy
+				xPosOneup = random.nextInt(25);
+				yPosOneup = random.nextInt(16);
+			}	
+		}
+		
+		if(inv)
+		{
+			g.setColor(Color.white);
+			g.drawString("You are invinsible", 380, 590);
+			
+			g.setColor(Color.lightGray);
+			g.drawRect(250, 600, 400, 5);
+			g.setColor(Color.white);
+			g.fillRect(250, 600, 400-(invTime*4), 5);
+			
+			if(invTime  > 100)
+			{
+				inv = false;
+				invTime = 0;
+			}
+		}
+	
+		//****************************************************
+		
+		if(!inv)
+		{
+			for(int i=1; i<snakeLength ;i++)		//i=1 because at [0] there is head of the snake
+			{
+				// if x and y position of any body part of snake is same as x and y position of head of the snake
+				if(snakeXLength[i] == snakeXLength[0] && snakeYLength[i] == snakeYLength[0])		//If snake collides with itself
+				{
+					gOver();
 				
 				
-				//For Restarting game using keyboard inputs
-				/*
-				g.setColor(Color.red);
-				g.setFont(new Font("arial",Font.BOLD, 50));
-				g.drawString("Game Over", 300, 300);
+					//For Restarting game using keyboard inputs
+					/*
+					g.setColor(Color.red);
+					g.setFont(new Font("arial",Font.BOLD, 50));
+					g.drawString("Game Over", 300, 300);
 				
-				g.setFont(new Font("arial",Font.BOLD, 30));
-				g.drawString("Press SPACE to restart", 280, 360);	
+					g.setFont(new Font("arial",Font.BOLD, 30));
+					g.drawString("Press SPACE to restart", 280, 360);	
 				
-				g.setFont(new Font("arial",Font.BOLD, 30));
-				g.drawString("Press ESCAPE to exit", 280, 400);	
-				*/
+					g.setFont(new Font("arial",Font.BOLD, 30));
+					g.drawString("Press ESCAPE to exit", 280, 400);	
+					 */
+				}
 			}
 		}
 		
 		
+		if(inv)
+			invTime++;
 		//g.dispose();	//Clear the frame for new components
 	}
 
@@ -288,10 +397,22 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 				{
 					snakeXLength[i] = snakeXLength[i-1];		//Move 
 				}
-				if(snakeXLength[i] > 850)		//if snake touches the border
+				
+				if(inv)
 				{
-					gOver();		//Player Loses
+					if(snakeXLength[i] > 850)		//if snake touches the border
+					{
+						snakeXLength[i] = 25;		//then replace the snake to the starting position so it comes out from the opposite border
+					}
 				}
+				else
+				{
+					if(snakeXLength[i] > 850)		//if snake touches the border
+					{
+						gOver();		//Player Loses
+					}
+				}
+				
 			}
 			repaint();	//Refresh the screen
 		}
@@ -312,9 +433,20 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 				{
 					snakeXLength[i] = snakeXLength[i-1];		//Move 
 				}
-				if(snakeXLength[i] < 25)		//if snake touches the border
+				
+				if(inv)
 				{
-					gOver();		//Player Loses
+					if(snakeXLength[i] < 25)		//if snake touches the border
+					{
+						snakeXLength[i] = 850;		//then replace the snake to the starting position so it comes out from the opposite border
+					}
+				}
+				else
+				{
+					if(snakeXLength[i] < 25)		//if snake touches the border
+					{
+						gOver();		//Player Loses
+					}
 				}
 			}
 			repaint();	//Refresh the screen
@@ -336,9 +468,20 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 				{
 					snakeYLength[i] = snakeYLength[i-1];		//Move 
 				}
-				if(snakeYLength[i] < 75)		//if snake touches the border
+				
+				if(inv)
 				{
-					gOver();		//Player Loses
+					if(snakeYLength[i] < 75)		//if snake touches the border
+					{
+						snakeYLength[i] = 625;		//then replace the snake to the starting position so it comes out from the opposite border
+					}
+				}
+				else
+				{
+					if(snakeYLength[i] < 75)		//if snake touches the border
+					{
+						gOver();		//Player Loses
+					}
 				}
 			}
 			repaint();	//Refresh the screen
@@ -360,9 +503,20 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 				{
 					snakeYLength[i] = snakeYLength[i-1];		//Move 
 				}
-				if(snakeYLength[i] > 625)		//if snake touches the border
+				
+				if(inv)
 				{
-					gOver();		//Player Loses
+					if(snakeYLength[i] > 625)		//if snake touches the border
+					{
+						snakeYLength[i] = 75;		//then replace the snake to the starting position so it comes out from the opposite border
+					}
+				}
+				else 
+				{
+					if(snakeYLength[i] > 625)		//if snake touches the border
+					{
+						gOver();		//Player Loses
+					}
 				}
 			}
 			repaint();	//Refresh the screen
@@ -415,6 +569,12 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 			up = false;
 			down = false;	
 			
+			if(showInv)
+				invCount--;
+			
+			if(inv)
+				invTime--;
+			
 			repaint();
 			
 		}
@@ -459,6 +619,12 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 			up = false;
 			down = false;	
 			
+			if(showInv)
+				invCount--;
+			
+			if(inv)
+				invTime--;
+			
 			repaint();
 			
 		}
@@ -497,6 +663,12 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 			left = false;
 			right = false;	
 			
+			if(showInv)
+				invCount--;
+			
+			if(inv)
+				invTime--;
+			
 			repaint();
 			
 		}
@@ -534,6 +706,12 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 			}
 			left = false;
 			right = false;	
+			
+			if(showInv)
+				invCount--;
+			
+			if(inv)
+				invTime--;
 			
 			repaint();
 			

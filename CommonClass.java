@@ -27,7 +27,7 @@ public class CommonClass extends JPanel
 	{}
 	
 	//FOR One Player
-	public void paint(Graphics g,int score,int snakeLength,boolean pause,String map, boolean left, boolean right, boolean up, boolean down, int snakeXLength[],int snakeYLength[],int pauseDir)
+	public void paint(Graphics g,int score,int snakeLength,boolean pause,String map, boolean left, boolean right, boolean up, boolean down, int snakeXLength[],int snakeYLength[],int pauseDir,boolean inv)
 	{
 //		//ImageIcon grass = new ImageIcon("wall4.jpg");
 		//grass.paintIcon(this, g, 0, 0);
@@ -171,31 +171,39 @@ public class CommonClass extends JPanel
 					
 					if(i != 0)
 					{
-						switch(randomInteger)
+						if(inv)
 						{
-							case 0:	snakeImage = new ImageIcon("snakeimage.png");
-									snakeImage.paintIcon(this, g, snakeXLength[i], snakeYLength[i]);
-									break;
-									
-							case 1:	snakeImage = new ImageIcon("snakeimage1.png");
-									snakeImage.paintIcon(this, g, snakeXLength[i], snakeYLength[i]);
-									break;
-							
-							case 2:	snakeImage = new ImageIcon("snakeimage2.png");
-									snakeImage.paintIcon(this, g, snakeXLength[i], snakeYLength[i]);
-									break;
-							
-							case 3:	snakeImage = new ImageIcon("snakeimage3.png");
-									snakeImage.paintIcon(this, g, snakeXLength[i], snakeYLength[i]);
-									break;
-							
-							case 4:	snakeImage = new ImageIcon("snakeimage4.png");
-									snakeImage.paintIcon(this, g, snakeXLength[i], snakeYLength[i]);
-									break;
-							
-							default:	snakeImage = new ImageIcon("snakeimage2.png");
+							snakeImage = new ImageIcon("invSnake.png");
+							snakeImage.paintIcon(this, g, snakeXLength[i], snakeYLength[i]);
+						}
+						else
+						{
+							switch(randomInteger)
+							{
+								case 0:	snakeImage = new ImageIcon("snakeimage.png");
 										snakeImage.paintIcon(this, g, snakeXLength[i], snakeYLength[i]);
 										break;
+									
+								case 1:	snakeImage = new ImageIcon("snakeimage1.png");
+										snakeImage.paintIcon(this, g, snakeXLength[i], snakeYLength[i]);
+										break;
+							
+								case 2:	snakeImage = new ImageIcon("snakeimage2.png");
+										snakeImage.paintIcon(this, g, snakeXLength[i], snakeYLength[i]);
+										break;
+							
+								case 3:	snakeImage = new ImageIcon("snakeimage3.png");
+										snakeImage.paintIcon(this, g, snakeXLength[i], snakeYLength[i]);
+										break;
+							
+								case 4:	snakeImage = new ImageIcon("snakeimage4.png");
+										snakeImage.paintIcon(this, g, snakeXLength[i], snakeYLength[i]);
+										break;
+							
+								default:	snakeImage = new ImageIcon("snakeimage2.png");
+											snakeImage.paintIcon(this, g, snakeXLength[i], snakeYLength[i]);
+											break;
+							}
 						}
 						
 						/*
