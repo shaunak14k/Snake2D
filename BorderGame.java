@@ -48,7 +48,7 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 	private boolean down = false;
 	
 	private Timer timer;
-	private int delay = 200;
+	private int delay = 160;
 	
 	private int snakeLength = 3;
 	
@@ -150,16 +150,28 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 		CommonClass c = new CommonClass();
 		c.paint(g,score,snakeLength,pause,map,left,right,up,down,snakeXLength,snakeYLength,pauseDir,inv);
 	
-		
-		//Draw border for the snake to collide
-		g.setColor(Color.green.darker());
-		Graphics2D g2 = (Graphics2D) g;
-		int thickness = 4;
-		Stroke oldStroke = g2.getStroke();
-		g2.setStroke(new BasicStroke(thickness));
-		g2.drawRect(24, 75, 851, 577);
-		g2.setStroke(oldStroke);
-		
+		if(inv)
+		{
+			//Draw border for the snake to collide
+			g.setColor(Color.white.darker());
+			Graphics2D g2 = (Graphics2D) g;
+			int thickness = 4;
+			Stroke oldStroke = g2.getStroke();
+			g2.setStroke(new BasicStroke(thickness));
+			g2.drawRect(24, 75, 851, 577);
+			g2.setStroke(oldStroke);
+		}
+		else
+		{
+			//Draw border for the snake to collide
+			g.setColor(Color.green.darker());
+			Graphics2D g2 = (Graphics2D) g;
+			int thickness = 4;
+			Stroke oldStroke = g2.getStroke();
+			g2.setStroke(new BasicStroke(thickness));
+			g2.drawRect(24, 75, 851, 577);
+			g2.setStroke(oldStroke);
+		}
 		
 		
 		enemyImage = new ImageIcon("enemy.png");
@@ -256,6 +268,8 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 				inv = false;
 				
 				showInv = false;
+				
+				repaint();
 
 				//Again generate random var for position new enemy
 				xPosOneup = random.nextInt(25);

@@ -38,7 +38,7 @@ public class GameOverMenu implements ActionListener
 	{
 		
 		
-		gameOverMusic();
+		//gameOverMusic();
 		
 		UpdateHighScore ob = new UpdateHighScore();
 			

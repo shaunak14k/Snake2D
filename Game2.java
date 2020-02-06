@@ -499,7 +499,7 @@ public class Game2 extends JPanel implements KeyListener,ActionListener
 			}
 		}
 		
-		//Check if snake collides with itself
+		/*//Check if snake collides with itself
 		for(int i=1; i<snakeLength ;i++)
 		{	
 			if((snakeXLength1[0] == snakeXLength1[i] && snakeYLength1[0] == snakeYLength1[i]) && (snakeXLength2[0] == snakeXLength2[i] && snakeYLength2[0] == snakeYLength2[i]))
@@ -517,7 +517,7 @@ public class Game2 extends JPanel implements KeyListener,ActionListener
 				repaint();
 				gWin("GREEN");
 			}
-		}
+		}*/
 		
 				
 				

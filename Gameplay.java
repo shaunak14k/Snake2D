@@ -191,7 +191,7 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 		if(score%10==0 && score!=0)
 		{
 			showBigEnemy  = true;
-		}
+		}	
 		
 		if(showBigEnemy)
 		{
@@ -206,12 +206,12 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 				g.setColor(Color.white);
 				g.fillRect(250, 600, 400-(bigEnemyCount*8), 5);
 				
-				//Check if snake collides the enemy
-				if((snakeXLength[0] > bigEnemyXpos[xPosBig]-25 && snakeXLength[0] < bigEnemyXpos[xPosBig]+75) && (snakeYLength[0] > bigEnemyYpos[yPosBig]-25 && snakeYLength[0] < bigEnemyYpos[yPosBig]+75)) 
+				//Check if snake collides the BIGenemy
+				if((snakeXLength[0] > bigEnemyXpos[xPosBig]-25 && snakeXLength[0] < bigEnemyXpos[xPosBig]+50) && (snakeYLength[0] > bigEnemyYpos[yPosBig]-25 && snakeYLength[0] < bigEnemyYpos[yPosBig]+50)) 
 				{
 					score += 3;
 
-					//repaint();
+					repaint();
 				
 					snakeLength += 3;
 				
@@ -249,6 +249,7 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 			
 				showBigEnemy = false;
 			
+				repaint();
 				//Again generate random var for position new enemy
 				xPosBig = random.nextInt(25);
 				yPosBig = random.nextInt(16);
@@ -269,7 +270,6 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 				
 				g.dispose();
 			
-				
 				
 				//panel.setVisible(false);
 				

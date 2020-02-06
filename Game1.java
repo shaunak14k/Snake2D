@@ -72,8 +72,8 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 	
 	private Random random = new Random();		//random variable
 	
-	private int xPos;
-	private int yPos;
+	private int xPos = random.nextInt(34);
+	private int yPos = random.nextInt(23); 
 	
 	private ImageIcon enemyImage;
 	
@@ -92,8 +92,6 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 	int p2score = 0;
 
 
-	private int enemyFlag = 0;
-	
 	int x = random.nextInt(100);
 
 	private String map = "Classic";
@@ -293,20 +291,14 @@ public class Game1 extends JPanel implements KeyListener,ActionListener
 	    // scheduling the timer instance 
 		
 		//ENEMY SHOULD BE GENERATED AFTER RANDOM AMOUNT OF TIME
-		if(timerCount >= x) 
-		{
-			if(enemyFlag == 0)	//DONT CREATE NEW POSITIONS IF IT IS ALREADY PRINTED ONCE. CREATE NEW POSITIONS ONLY ONCE
-			{
-				xPos = random.nextInt(34);		//Range of random var is 34 for Xcoordinate of enemy
-				yPos = random.nextInt(23);		//Range is random var is 23 for Ycoordinate of enemy
-			}
+		
+			
 			//PRINT ENEMY
 			enemyImage = new ImageIcon("oneup.png");
 			enemyImage.paintIcon(this, g, enemyXpos[xPos], enemyYpos[yPos]);
 		
-			enemyFlag= 1;
 			//repaint();
-		}
+	
          
 		
 		
