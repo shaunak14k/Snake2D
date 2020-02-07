@@ -210,7 +210,13 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 		
 		//**********for invinsible snake*******************
 		
-		if(score%10 ==0 && score!=0)
+		if(score%2!=0 && score%10!=0 && invCount>=50)		//if time for doughnut is expired do not show doughunut again
+		{
+			showInv = false;
+			invCount = 0;
+		}
+		
+		if(score%10 ==0 && score!=0)		//Doughnut is appeared after gaps of 10 score
 		{
 			showInv = true;
 		}
@@ -263,13 +269,13 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 			}
 			else
 			{
-				invCount = 0;
+				//invCount = 0;
 					
 				inv = false;
 				
 				showInv = false;
 				
-				repaint();
+				//repaint();
 
 				//Again generate random var for position new enemy
 				xPosOneup = random.nextInt(25);
@@ -294,6 +300,8 @@ public class BorderGame extends JPanel implements KeyListener,ActionListener
 			}
 		}
 	
+		//invTime is the duration of invinsibility
+		
 		//****************************************************
 		
 		if(!inv)

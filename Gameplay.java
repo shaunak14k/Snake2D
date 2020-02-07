@@ -188,7 +188,14 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 		}
 		
 		//************For bigEnemy******************************************************************
-		if(score%10==0 && score!=0)
+		
+		if(score%2!=0 && score%10!=0 && bigEnemyCount>=50)		//if time is expired do not show big enemy again
+		{
+			showBigEnemy = false;
+			bigEnemyCount = 0;
+		}
+		
+		if(score%10==0 && score!=0 && bigEnemyCount==0)		//Show big enemy only after every 10 score.
 		{
 			showBigEnemy  = true;
 		}	
@@ -198,6 +205,7 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 			//System.out.println("YES");
 			if(bigEnemyCount < 50)
 			{
+								
 				bigEnemyImage = new ImageIcon("bigEnemy.png");
 				bigEnemyImage.paintIcon(this, g, bigEnemyXpos[xPosBig], bigEnemyYpos[yPosBig]);
 				
@@ -207,11 +215,12 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 				g.fillRect(250, 600, 400-(bigEnemyCount*8), 5);
 				
 				//Check if snake collides the BIGenemy
-				if((snakeXLength[0] > bigEnemyXpos[xPosBig]-25 && snakeXLength[0] < bigEnemyXpos[xPosBig]+50) && (snakeYLength[0] > bigEnemyYpos[yPosBig]-25 && snakeYLength[0] < bigEnemyYpos[yPosBig]+50)) 
+				if((snakeXLength[0] > bigEnemyXpos[xPosBig]-25 && snakeXLength[0] < bigEnemyXpos[xPosBig]+50) 
+				&& (snakeYLength[0] > bigEnemyYpos[yPosBig]-25 && snakeYLength[0] < bigEnemyYpos[yPosBig]+50)) 
 				{
 					score += 3;
 
-					repaint();
+					//repaint();
 				
 					snakeLength += 3;
 				
@@ -220,7 +229,7 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 					showBigEnemy = false;
 			
 					//Check if player wins 
-					if(snakeLength == 574)
+					if(snakeLength >= 574)
 					{			
 						repaint();
 						gWin();
@@ -245,14 +254,16 @@ public class Gameplay extends JPanel implements KeyListener,ActionListener
 			
 			else
 			{
-				bigEnemyCount = 0;
+				//bigEnemyCount = 0;
 			
 				showBigEnemy = false;
 			
 				repaint();
+				
 				//Again generate random var for position new enemy
 				xPosBig = random.nextInt(25);
 				yPosBig = random.nextInt(16);
+				
 			}	
 		
 		}
