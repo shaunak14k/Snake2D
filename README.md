@@ -15,4 +15,5 @@ Two Players :
 2) Fastest finger first : First snake to eat the enemy after barricades are removed wins.
 3) Best of 3 : First snake to eat enemy 3 times wins.
 
+![image](https://user-images.githubusercontent.com/30958999/130457378-6ab4a8b4-bc2e-4f94-ab64-36e709376a28.png)
 
